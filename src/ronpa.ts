@@ -4,7 +4,7 @@
  * @description Ronpa
  */
 
-import { RonpaConfig, Story } from "./declare";
+import { RonpaElement } from "./declare";
 
 export class Ronpa {
 
@@ -13,17 +13,12 @@ export class Ronpa {
         return new Ronpa();
     }
 
-    public static rebuild(stories: Story[], config: RonpaConfig) {
+    public static rebuild(elements: RonpaElement[]) {
 
-        return new Ronpa(stories, config);
+        return new Ronpa(elements);
     }
 
-    private readonly _stories: Story[];
-    private readonly _config: RonpaConfig;
+    private constructor(elements: RonpaElement[] = []) {
 
-    private constructor(stories: Story[] = [], config: RonpaConfig = {}) {
-
-        this._stories = stories;
-        this._config = config;
     }
 }

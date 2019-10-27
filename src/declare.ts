@@ -4,10 +4,6 @@
  * @description Declare
  */
 
-export type RonpaConfig = {
-
-};
-
-export type Story = {
+export type RonpaElement = {
 
 };
