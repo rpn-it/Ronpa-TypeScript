@@ -6,7 +6,7 @@
 
 export class Bullet {
 
-    public static create() {
+    public static create(): Bullet {
 
         return new Bullet();
     }

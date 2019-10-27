@@ -6,7 +6,7 @@
 
 export class Story {
 
-    public static create() {
+    public static create(): Story {
 
         return new Story();
     }
