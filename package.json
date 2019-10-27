@@ -17,6 +17,7 @@
   "homepage": "https://github.com/SudoDotDog/Ronpa-TypeScript#readme",
   "dependencies": {},
   "devDependencies": {
+    "@sudoo/io": "^1.6.1",
     "@sudoo/triforce": "^1.9.0"
   },
   "nyc": {
