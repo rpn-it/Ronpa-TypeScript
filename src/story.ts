@@ -10,9 +10,9 @@ import { FlatRecord } from "./declare";
 
 export class Story {
 
-    public static create(): Story {
+    public static create(identifier: string = unique()): Story {
 
-        return new Story(unique());
+        return new Story(identifier);
     }
 
     public static withRecord(record: FlatRecord): Story {
@@ -30,6 +30,16 @@ export class Story {
         this._bulletMap = new Map<string, Bullet>();
     }
 
+    public get id(): string {
+        return this._identifier;
+    }
+    public get bullets(): Bullet[] {
+        return [...this._bulletMap.values()];
+    }
+    public get length(): number {
+        return this._bulletMap.size;
+    }
+
     public addRecord(record: FlatRecord): this {
 
         if (record.story !== this._identifier) {
@@ -40,5 +50,15 @@ export class Story {
         this._bulletMap.set(record.id, bullet);
 
         return this;
+    }
+
+    public flat(): FlatRecord[] {
+
+        const records: FlatRecord[] = [];
+        for (const bullet of this._bulletMap.values()) {
+            records.push(bullet.record());
+        }
+
+        return records;
     }
 }

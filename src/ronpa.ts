@@ -28,16 +28,28 @@ export class Ronpa {
         this._storyMap = new Map<string, Story>();
     }
 
+    public get stories(): Story[] {
+        return [...this._storyMap.values()];
+    }
+    public get length(): number {
+        let length: number = 0;
+        for (const story of this._storyMap.values()) {
+            length += story.length;
+        }
+        return length;
+    }
+
     public addRecord(record: FlatRecord): this {
 
-        if (this._storyMap.has(record.id)) {
+        const storyID: string = record.story;
+        if (this._storyMap.has(storyID)) {
 
-            const story: Story = this._storyMap.get(record.id) as Story;
+            const story: Story = this._storyMap.get(storyID) as Story;
             story.addRecord(record);
         } else {
 
             const story: Story = Story.withRecord(record);
-            this._storyMap.set(record.story, story);
+            this._storyMap.set(storyID, story);
         }
 
         return this;
@@ -50,5 +62,15 @@ export class Ronpa {
         }
 
         return this;
+    }
+
+    public flat(): FlatRecord[] {
+
+        const records: FlatRecord[] = [];
+        for (const story of this._storyMap.values()) {
+            records.push(...story.flat());
+        }
+
+        return records;
     }
 }

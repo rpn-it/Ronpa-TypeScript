@@ -7,7 +7,8 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { Ronpa } from '../../src';
+import { FlatRecord, Ronpa } from '../../src';
+import { createMockRecords } from '../mock/records';
 
 describe('Given {Ronpa} Class', (): void => {
 
@@ -18,5 +19,14 @@ describe('Given {Ronpa} Class', (): void => {
         const ronpa = Ronpa.create();
 
         expect(ronpa).to.be.instanceOf(Ronpa);
+    });
+
+    it('should be able to reproduce flat reactions', (): void => {
+
+        const records: FlatRecord[] = createMockRecords();
+        const ronpa = Ronpa.rebuild(records);
+
+        expect(ronpa.flat()).to.be.deep.equal(records);
+        expect(ronpa).to.be.lengthOf(records.length);
     });
 });

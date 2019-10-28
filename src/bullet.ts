@@ -45,4 +45,43 @@ export class Bullet {
         this._content = record.content;
         this._reactions = record.reactions;
     }
+
+    public get id(): string {
+        return this._id;
+    }
+    public get at(): Date {
+        return this._at;
+    }
+    public get by(): string {
+        return this._by;
+    }
+    public get story(): string {
+        return this._story;
+    }
+    public get content(): string {
+        return this._content;
+    }
+    public get reactions(): Reaction[] {
+        return this._reactions || [];
+    }
+
+    public record(): FlatRecord {
+
+        const record: FlatRecord = {
+            id: this._id,
+            at: this._at,
+            by: this._by,
+            story: this._story,
+            content: this._content,
+        };
+
+        if (this._reactions) {
+            return {
+                ...record,
+                reactions: this._reactions,
+            };
+        }
+
+        return record;
+    }
 }
