@@ -23,7 +23,7 @@ describe('Given {Ronpa} Class', (): void => {
 
     it('should be able to reproduce flat reactions', (): void => {
 
-        const records: FlatRecord[] = createMockRecords();
+        const records: FlatRecord[] = createMockRecords(chance);
         const ronpa = Ronpa.rebuild(records);
 
         expect(ronpa.flat()).to.be.deep.equal(records);

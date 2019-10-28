@@ -81,7 +81,6 @@ export class Bullet {
                 reactions: this._reactions,
             };
         }
-
         return record;
     }
 }

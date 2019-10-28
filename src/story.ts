@@ -21,23 +21,46 @@ export class Story {
         return story.addRecord(record);
     }
 
+    public static fromRecords(records: FlatRecord[]): Story {
+
+        if (records.length <= 0) {
+            return this.create();
+        }
+
+        const story: Story = this.withRecord(records[0] as FlatRecord);
+        for (const record of records.slice(1)) {
+            story.addRecord(record);
+        }
+        return story;
+    }
+
     private readonly _identifier: string;
+
     private readonly _bulletMap: Map<string, Bullet>;
+    private readonly _bulletList: Bullet[];
 
     private constructor(identifier: string) {
 
         this._identifier = identifier;
+
         this._bulletMap = new Map<string, Bullet>();
+        this._bulletList = [];
     }
 
     public get id(): string {
         return this._identifier;
     }
     public get bullets(): Bullet[] {
-        return [...this._bulletMap.values()];
+        return this._bulletList;
     }
     public get length(): number {
-        return this._bulletMap.size;
+        return this._bulletList.length;
+    }
+    public get first(): Bullet | undefined {
+        return this._bulletList[0];
+    }
+    public get rest(): Bullet[] {
+        return this._bulletList.slice(1);
     }
 
     public addRecord(record: FlatRecord): this {
@@ -45,8 +68,8 @@ export class Story {
         if (record.story !== this._identifier) {
             throw new Error('Wrong Collection');
         }
-
         const bullet: Bullet = Bullet.fromRecord(record);
+        this._bulletList.push(bullet);
         this._bulletMap.set(record.id, bullet);
 
         return this;
@@ -54,11 +77,6 @@ export class Story {
 
     public flat(): FlatRecord[] {
 
-        const records: FlatRecord[] = [];
-        for (const bullet of this._bulletMap.values()) {
-            records.push(bullet.record());
-        }
-
-        return records;
+        return this._bulletList.map((bullet: Bullet) => bullet.record());
     }
 }
