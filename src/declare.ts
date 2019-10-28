@@ -19,4 +19,5 @@ export type FlatRecord = {
     readonly story: string;
     readonly content: string;
     readonly reactions?: Reaction[];
+    readonly extras?: Record<string, any>;
 };

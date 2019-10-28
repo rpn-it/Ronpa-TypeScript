@@ -13,6 +13,8 @@ export class Bullet {
         from: string,
         content: string,
         story: string,
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
     ): Bullet {
 
         return new Bullet({
@@ -21,6 +23,8 @@ export class Bullet {
             by: from,
             content,
             story,
+            reactions,
+            extras,
         });
     }
 
@@ -34,7 +38,9 @@ export class Bullet {
     private readonly _by: string;
     private readonly _story: string;
     private readonly _content: string;
-    private readonly _reactions?: Reaction[];
+
+    private _reactions?: Reaction[];
+    private _extras?: Record<string, any>;
 
     private constructor(record: FlatRecord) {
 
@@ -44,6 +50,7 @@ export class Bullet {
         this._story = record.story;
         this._content = record.content;
         this._reactions = record.reactions;
+        this._extras = record.extras;
     }
 
     public get id(): string {
@@ -64,6 +71,30 @@ export class Bullet {
     public get reactions(): Reaction[] {
         return this._reactions || [];
     }
+    public get extras(): Record<string, any> {
+        return this._extras || {};
+    }
+
+    public setExtra(key: string, value: any): this {
+
+        if (this._extras) {
+            this._extras = {
+                ...this._extras,
+                [key]: value,
+            };
+            return this;
+        }
+
+        this._extras = {
+            [key]: value,
+        };
+        return this;
+    }
+
+    public getExtra(key: string): any {
+
+        return this.extras[key];
+    }
 
     public record(): FlatRecord {
 
@@ -75,10 +106,25 @@ export class Bullet {
             content: this._content,
         };
 
+        if (this._reactions && this._extras) {
+            return {
+                ...record,
+                reactions: this._reactions,
+                extras: this._extras,
+            };
+        }
+
         if (this._reactions) {
             return {
                 ...record,
                 reactions: this._reactions,
+            };
+        }
+
+        if (this._extras) {
+            return {
+                ...record,
+                extras: this._extras,
             };
         }
         return record;
