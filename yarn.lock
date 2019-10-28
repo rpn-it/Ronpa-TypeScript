@@ -31,6 +31,11 @@
     "@sudoo/bark" "^2.7.1"
     connor "^2.6.0"
 
+"@sudoo/random@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@sudoo/random/-/random-1.0.0.tgz#9945e6ae0f78b176788598b8201e84622a810d93"
+  integrity sha512-kS0EEaHzbGy20pcZdSPLfpjikYL6vuYa4yU41EDfpyAYbpyr3AtWSzfKvQHj4hQAISWw+w7DWssiFy5yRYCeKA==
+
 "@sudoo/triforce@^1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@sudoo/triforce/-/triforce-1.9.0.tgz#76dd184e0e6f22166c84196399aed7ed9a714e08"
