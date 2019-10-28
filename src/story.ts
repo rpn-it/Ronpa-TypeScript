@@ -63,15 +63,41 @@ export class Story {
         return this._bulletList.slice(1);
     }
 
+    public hasFirst(): boolean {
+
+        return Boolean(this._bulletList[0]);
+    }
+
+    public assertFirst(): Bullet {
+
+        if (!this.hasFirst()) {
+            throw new Error('No Element');
+        }
+        return this._bulletList[0] as Bullet;
+    }
+
+    public createBullet(by: string, content: string): this {
+
+        const bullet: Bullet = Bullet.create(by, content, this._identifier);
+        this.addBullet(bullet);
+        return this;
+    }
+
     public addRecord(record: FlatRecord): this {
 
         if (record.story !== this._identifier) {
             throw new Error('Wrong Collection');
         }
         const bullet: Bullet = Bullet.fromRecord(record);
-        this._bulletList.push(bullet);
-        this._bulletMap.set(record.id, bullet);
+        return this.addBullet(bullet);
+    }
 
+    public addBullet(bullet: Bullet): this {
+
+        if (!this._bulletMap.has(bullet.id)) {
+            this._bulletList.push(bullet);
+        }
+        this._bulletMap.set(bullet.id, bullet);
         return this;
     }
 

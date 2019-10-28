@@ -39,6 +39,14 @@ export class Ronpa {
         }, 0);
     }
 
+    public createStory(by: string, content: string): this {
+
+        const story: Story = Story.create();
+        story.createBullet(by, content);
+        this.addStory(story);
+        return this;
+    }
+
     public addRecord(record: FlatRecord): this {
 
         const storyID: string = record.story;
@@ -60,6 +68,15 @@ export class Ronpa {
         for (const record of records) {
             this.addRecord(record);
         }
+        return this;
+    }
+
+    public addStory(story: Story): this {
+
+        if (!this._storyMap.has(story.id)) {
+            this._storyList.push(story);
+        }
+        this._storyMap.set(story.id, story);
         return this;
     }
 

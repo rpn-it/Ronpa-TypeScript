@@ -52,7 +52,7 @@ export class Bullet {
     private constructor(record: FlatRecord) {
 
         this._id = record.id;
-        this._at = record.at;
+        this._at = new Date(record.at);
         this._by = record.by;
         this._story = record.story;
         this._content = record.content;
