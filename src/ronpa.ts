@@ -4,7 +4,7 @@
  * @description Ronpa
  */
 
-import { RonpaElement } from "./declare";
+import { FlatRecord } from "./declare";
 
 export class Ronpa {
 
@@ -13,12 +13,12 @@ export class Ronpa {
         return new Ronpa();
     }
 
-    public static rebuild(elements: RonpaElement[]) {
+    public static rebuild(records: FlatRecord[]) {
 
-        return new Ronpa(elements);
+        return new Ronpa(records);
     }
 
-    private constructor(elements: RonpaElement[] = []) {
+    private constructor(records: FlatRecord[] = []) {
 
     }
 }

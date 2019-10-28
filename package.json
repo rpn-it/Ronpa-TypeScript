@@ -15,7 +15,9 @@
     "url": "https://github.com/SudoDotDog/Ronpa-TypeScript/issues"
   },
   "homepage": "https://github.com/SudoDotDog/Ronpa-TypeScript#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@sudoo/bark": "^2.7.1"
+  },
   "devDependencies": {
     "@sudoo/io": "^1.6.1",
     "@sudoo/triforce": "^1.9.0"

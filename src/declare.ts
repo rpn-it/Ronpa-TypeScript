@@ -4,6 +4,6 @@
  * @description Declare
  */
 
-export type RonpaElement = {
+export type FlatRecord = {
 
 };
