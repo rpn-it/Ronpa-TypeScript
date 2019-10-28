@@ -13,6 +13,8 @@ export class Bullet {
         from: string,
         content: string,
         story: string,
+        to?: string[],
+        reply?: string,
         reactions?: Reaction[],
         extras?: Record<string, any>,
     ): Bullet {
@@ -23,6 +25,8 @@ export class Bullet {
             by: from,
             content,
             story,
+            to,
+            reply,
             reactions,
             extras,
         });
@@ -39,6 +43,9 @@ export class Bullet {
     private readonly _story: string;
     private readonly _content: string;
 
+    private _to?: string[];
+    private _reply?: string;
+
     private _reactions?: Reaction[];
     private _extras?: Record<string, any>;
 
@@ -49,6 +56,8 @@ export class Bullet {
         this._by = record.by;
         this._story = record.story;
         this._content = record.content;
+        this._to = record.to;
+        this._reply = record.reply;
         this._reactions = record.reactions;
         this._extras = record.extras;
     }
@@ -68,11 +77,51 @@ export class Bullet {
     public get content(): string {
         return this._content;
     }
+    public get to(): string[] {
+        return this._to || [];
+    }
+    public get reply(): string | undefined {
+        return this._reply;
+    }
     public get reactions(): Reaction[] {
         return this._reactions || [];
     }
     public get extras(): Record<string, any> {
         return this._extras || {};
+    }
+
+    public setReply(to: string): this {
+
+        this._reply = to;
+        return this;
+    }
+
+    public addReceiver(name: string): this {
+
+        if (this._to) {
+            this._to.push(name);
+            return this;
+        }
+        this._to = [name];
+        return this;
+    }
+
+    public addReaction(by: string, type: string): this {
+
+        if (this._reactions) {
+            this._reactions.push({
+                at: new Date(),
+                by,
+                type,
+            });
+            return this;
+        }
+        this._reactions = [{
+            at: new Date(),
+            by,
+            type,
+        }];
+        return this;
     }
 
     public setExtra(key: string, value: any): this {
@@ -106,26 +155,17 @@ export class Bullet {
             content: this._content,
         };
 
-        if (this._reactions && this._extras) {
-            return {
-                ...record,
-                reactions: this._reactions,
-                extras: this._extras,
-            };
+        if (this._to) {
+            (record as any).to = this._to;
         }
-
+        if (this._reply) {
+            (record as any).reply = this._reply;
+        }
         if (this._reactions) {
-            return {
-                ...record,
-                reactions: this._reactions,
-            };
+            (record as any).reactions = this._reactions;
         }
-
         if (this._extras) {
-            return {
-                ...record,
-                extras: this._extras,
-            };
+            (record as any).extras = this._extras;
         }
         return record;
     }
