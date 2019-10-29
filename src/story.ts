@@ -36,6 +36,8 @@ export class Story {
 
     private readonly _identifier: string;
 
+    private readonly _thesis: Bullet;
+
     private readonly _bulletMap: Map<string, Bullet>;
     private readonly _bulletList: Bullet[];
 
@@ -55,25 +57,6 @@ export class Story {
     }
     public get length(): number {
         return this._bulletList.length;
-    }
-    public get first(): Bullet | undefined {
-        return this._bulletList[0];
-    }
-    public get rest(): Bullet[] {
-        return this._bulletList.slice(1);
-    }
-
-    public hasFirst(): boolean {
-
-        return Boolean(this._bulletList[0]);
-    }
-
-    public assertFirst(): Bullet {
-
-        if (!this.hasFirst()) {
-            throw new Error('No Element');
-        }
-        return this._bulletList[0] as Bullet;
     }
 
     public createBullet(by: string, content: string): this {

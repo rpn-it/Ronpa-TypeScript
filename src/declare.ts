@@ -11,6 +11,11 @@ export type Reaction = {
     readonly type: string;
 };
 
+export type Thesis = {
+
+    readonly insiders: string[];
+};
+
 export type FlatRecord = {
 
     readonly id: string;
@@ -19,8 +24,7 @@ export type FlatRecord = {
     readonly story: string;
     readonly content: string;
 
-    readonly to?: string[]
-    readonly reply?: string;
+    readonly thesis?: Thesis;
 
     readonly reactions?: Reaction[];
     readonly extras?: Record<string, any>;
