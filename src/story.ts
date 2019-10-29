@@ -81,6 +81,16 @@ export class Story {
         return Boolean(this._thesisBullet) && Boolean(this._thesis);
     }
 
+    public assertThesis(): Thesis {
+
+        return this._thesis as Thesis;
+    }
+
+    public assertThesisBullet(): Bullet {
+
+        return this._thesisBullet as Bullet;
+    }
+
     public createThesisBullet(by: string, content: string): this {
 
         const bullet: Bullet = Bullet.create(by, content, this._identifier);
