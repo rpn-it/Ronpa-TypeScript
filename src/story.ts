@@ -6,7 +6,7 @@
 
 import { unique } from "@sudoo/random";
 import { Bullet } from "./bullet";
-import { FlatRecord } from "./declare";
+import { FlatRecord, Thesis } from "./declare";
 
 export class Story {
 
@@ -34,9 +34,17 @@ export class Story {
         return story;
     }
 
+    public static fromThesis(bullet: Bullet, thesis: Thesis): Story {
+
+        const story: Story = this.create(bullet.story);
+        story.setThesis(bullet, thesis);
+        return story;
+    }
+
     private readonly _identifier: string;
 
-    private readonly _thesis: Bullet;
+    private _thesisBullet: Bullet | null;
+    private _thesis: Thesis | null;
 
     private readonly _bulletMap: Map<string, Bullet>;
     private readonly _bulletList: Bullet[];
@@ -47,6 +55,9 @@ export class Story {
 
         this._bulletMap = new Map<string, Bullet>();
         this._bulletList = [];
+
+        this._thesisBullet = null;
+        this._thesis = null;
     }
 
     public get id(): string {
@@ -57,6 +68,12 @@ export class Story {
     }
     public get length(): number {
         return this._bulletList.length;
+    }
+    public get thesisBullet(): Bullet | null {
+        return this._thesisBullet;
+    }
+    public get thesis(): Thesis | null {
+        return this._thesis;
     }
 
     public createBullet(by: string, content: string): this {
@@ -71,11 +88,19 @@ export class Story {
         if (record.story !== this._identifier) {
             throw new Error('Wrong Collection');
         }
+
         const bullet: Bullet = Bullet.fromRecord(record);
+        if (record.thesis) {
+            return this.setThesis(bullet, record.thesis);
+        }
         return this.addBullet(bullet);
     }
 
     public addBullet(bullet: Bullet): this {
+
+        if (bullet.story !== this._identifier) {
+            throw new Error('Wrong Collection');
+        }
 
         if (!this._bulletMap.has(bullet.id)) {
             this._bulletList.push(bullet);
@@ -84,8 +109,32 @@ export class Story {
         return this;
     }
 
+    public setThesis(bullet: Bullet, thesis: Thesis): this {
+
+        this._thesisBullet = bullet;
+        this._thesis = thesis;
+        return this;
+    }
+
+    public getThesisRecord(): FlatRecord | undefined {
+
+        if (this._thesisBullet && this._thesis) {
+            return {
+                ...this._thesisBullet.record(),
+                thesis: this._thesis,
+            };
+        }
+        return undefined;
+    }
+
     public flat(): FlatRecord[] {
 
-        return this._bulletList.map((bullet: Bullet) => bullet.record());
+        const bulletRecordList: FlatRecord[] = this._bulletList.map((bullet: Bullet) => bullet.record());
+        const thesisRecord: FlatRecord | undefined = this.getThesisRecord();
+
+        if (thesisRecord) {
+            return [thesisRecord, ...bulletRecordList];
+        }
+        return bulletRecordList;
     }
 }

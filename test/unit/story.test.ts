@@ -28,13 +28,4 @@ describe('Given {Story} Class', (): void => {
 
         expect(story).to.be.lengthOf(records.length);
     });
-
-    it('should be able to get first and else bullets', (): void => {
-
-        const records: FlatRecord[] = createStoryRecords(chance);
-        const story = Story.fromRecords(records);
-
-        expect((story.first as any).id).to.be.equal(records[0].id);
-        expect(story.rest).to.be.lengthOf(records.length - 1);
-    });
 });
