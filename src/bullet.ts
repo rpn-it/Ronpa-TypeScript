@@ -5,9 +5,9 @@
  */
 
 import { unique } from "@sudoo/random";
-import { FlatRecord, Reaction } from "./declare";
+import { ContentType, FlatRecord, Reaction, RECORD_TYPE } from "./declare";
 
-export class Bullet {
+export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
     public static create(
         from: string,
@@ -15,9 +15,9 @@ export class Bullet {
         story: string,
         reactions?: Reaction[],
         extras?: Record<string, any>,
-    ): Bullet {
+    ): Bullet<RECORD_TYPE.TEXT> {
 
-        return new Bullet({
+        return new Bullet<RECORD_TYPE.TEXT>({
             id: unique(),
             at: new Date(),
             by: from,
@@ -28,27 +28,54 @@ export class Bullet {
         });
     }
 
-    public static fromRecord(record: FlatRecord): Bullet {
+    public static createFile(
+        from: string,
+        filePath: string,
+        originalName: string,
+        story: string,
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
+    ): Bullet<RECORD_TYPE.FILE> {
 
-        return new Bullet(record);
+        return new Bullet<RECORD_TYPE.FILE>({
+            id: unique(),
+            at: new Date(),
+            by: from,
+            content: {
+                path: filePath,
+                originalName,
+            },
+            type: RECORD_TYPE.FILE,
+            story,
+            reactions,
+            extras,
+        });
+    }
+
+    public static fromRecord<T extends RECORD_TYPE = any>(record: FlatRecord<T>): Bullet<T> {
+
+        return new Bullet<T>(record);
     }
 
     private readonly _id: string;
     private readonly _at: Date;
     private readonly _by: string;
     private readonly _story: string;
-    private readonly _content: string;
+    private readonly _content: ContentType<T>;
 
+    private readonly _type: RECORD_TYPE;
     private _reactions?: Reaction[];
     private _extras?: Record<string, any>;
 
-    private constructor(record: FlatRecord) {
+    private constructor(record: FlatRecord<T>) {
 
         this._id = record.id;
         this._at = new Date(record.at);
         this._by = record.by;
         this._story = record.story;
         this._content = record.content;
+
+        this._type = record.type || RECORD_TYPE.TEXT;
         this._reactions = record.reactions;
         this._extras = record.extras;
     }
@@ -65,8 +92,11 @@ export class Bullet {
     public get story(): string {
         return this._story;
     }
-    public get content(): string {
+    public get content(): ContentType<T> {
         return this._content;
+    }
+    public get type(): RECORD_TYPE {
+        return this._type;
     }
     public get reactions(): Reaction[] {
         return this._reactions || [];
@@ -114,9 +144,9 @@ export class Bullet {
         return this.extras[key];
     }
 
-    public record(): FlatRecord {
+    public record(): FlatRecord<T> {
 
-        const record: FlatRecord = {
+        const record: FlatRecord<T> = {
             id: this._id,
             at: this._at,
             by: this._by,
@@ -126,6 +156,9 @@ export class Bullet {
 
         if (this._reactions) {
             (record as any).reactions = this._reactions;
+        }
+        if (this._type !== RECORD_TYPE.TEXT) {
+            (record as any).type = this._type;
         }
         if (this._extras) {
             (record as any).extras = this._extras;

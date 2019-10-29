@@ -6,7 +6,7 @@
 
 import { unique } from "@sudoo/random";
 import { Bullet } from "./bullet";
-import { FlatRecord, Thesis } from "./declare";
+import { FlatRecord, RECORD_TYPE, Thesis } from "./declare";
 
 export class Story {
 
@@ -76,9 +76,25 @@ export class Story {
         return this._thesis;
     }
 
+    public createThesisBullet(by: string, content: string): this {
+
+        const bullet: Bullet = Bullet.create(by, content, this._identifier);
+        this.setThesis(bullet, {
+            insiders: [],
+        });
+        return this;
+    }
+
     public createBullet(by: string, content: string): this {
 
         const bullet: Bullet = Bullet.create(by, content, this._identifier);
+        this.addBullet(bullet);
+        return this;
+    }
+
+    public createFileBullet(by: string, filePath: string, originalName: string): this {
+
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier);
         this.addBullet(bullet);
         return this;
     }
@@ -96,7 +112,7 @@ export class Story {
         return this.addBullet(bullet);
     }
 
-    public addBullet(bullet: Bullet): this {
+    public addBullet(bullet: Bullet<any>): this {
 
         if (bullet.story !== this._identifier) {
             throw new Error('Wrong Collection');

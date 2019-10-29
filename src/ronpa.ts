@@ -42,7 +42,7 @@ export class Ronpa {
     public createStory(by: string, content: string): this {
 
         const story: Story = Story.create();
-        story.createBullet(by, content);
+        story.createThesisBullet(by, content);
         this.addStory(story);
         return this;
     }
