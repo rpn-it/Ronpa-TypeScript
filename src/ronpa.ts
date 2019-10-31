@@ -4,6 +4,7 @@
  * @description Ronpa
  */
 
+import { Bullet } from "./bullet";
 import { FlatRecord } from "./declare";
 import { Story } from "./story";
 
@@ -78,6 +79,39 @@ export class Ronpa {
         }
         this._storyMap.set(story.id, story);
         return this;
+    }
+
+    public hasStory(id: string): boolean {
+
+        return this._storyMap.has(id);
+    }
+
+    public getStory(id: string): Story | null {
+
+        if (this.hasStory(id)) {
+            return this._storyMap.get(id) as Story;
+        }
+        return null;
+    }
+
+    public hasBullet(id: string): boolean {
+
+        for (const story of this._storyList) {
+            if (story.hasBullet(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public getBullet(id: string): Bullet | null {
+
+        for (const story of this._storyList) {
+            if (story.hasBullet(id)) {
+                return story.getBullet(id);
+            }
+        }
+        return null;
     }
 
     public flat(): FlatRecord[] {

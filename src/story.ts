@@ -147,6 +147,19 @@ export class Story {
         return this;
     }
 
+    public hasBullet(id: string): boolean {
+
+        return this._bulletMap.has(id);
+    }
+
+    public getBullet(id: string): Bullet | null {
+
+        if (this.hasBullet(id)) {
+            return this._bulletMap.get(id) as Bullet;
+        }
+        return null;
+    }
+
     public getThesisRecord(): FlatRecord | undefined {
 
         if (this._thesisBullet && this._thesis) {
