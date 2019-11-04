@@ -145,6 +145,22 @@ export class Story {
         return this;
     }
 
+    public addInsider(insider: string): this {
+
+        const thesis: Thesis = this.getThesis();
+        thesis.insiders.push(insider);
+        return this;
+    }
+
+    public getThesis(): Thesis {
+
+        if (this._thesis) {
+            return this._thesis;
+        }
+
+        throw new Error('Thesis Not Exist');
+    }
+
     public setThesis(bullet: Bullet, thesis: Thesis): this {
 
         if (this._thesisBullet) {
