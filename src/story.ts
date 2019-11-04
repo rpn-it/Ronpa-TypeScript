@@ -103,15 +103,20 @@ export class Story {
     public createBullet(by: string, content: string): this {
 
         const bullet: Bullet = Bullet.create(by, content, this._identifier);
+        return this.addBullet(bullet);
+    }
+
+    public createAndGetBullet(by: string, content: string): Bullet {
+
+        const bullet: Bullet = Bullet.create(by, content, this._identifier);
         this.addBullet(bullet);
-        return this;
+        return bullet;
     }
 
     public createFileBullet(by: string, filePath: string, originalName: string): this {
 
         const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier);
-        this.addBullet(bullet);
-        return this;
+        return this.addBullet(bullet);
     }
 
     public addRecord(record: FlatRecord): this {
@@ -141,6 +146,10 @@ export class Story {
     }
 
     public setThesis(bullet: Bullet, thesis: Thesis): this {
+
+        if (this._thesisBullet) {
+            throw new Error('Thesis Already Exist');
+        }
 
         this._thesisBullet = bullet;
         this._thesis = thesis;

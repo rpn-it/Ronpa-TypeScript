@@ -44,8 +44,15 @@ export class Ronpa {
 
         const story: Story = Story.create();
         story.createThesisBullet(by, content);
+        return this.addStory(story);
+    }
+
+    public createAndGetStory(by: string, content: string): Story {
+
+        const story: Story = Story.create();
+        story.createThesisBullet(by, content);
         this.addStory(story);
-        return this;
+        return story;
     }
 
     public addRecord(record: FlatRecord): this {
