@@ -145,6 +145,12 @@ export class Story {
         return this;
     }
 
+    public getInsiders(): string[] {
+
+        const thesis: Thesis = this.getThesis();
+        return thesis.insiders;
+    }
+
     public addInsider(insider: string): this {
 
         return this.addInsiders(insider);
@@ -158,7 +164,11 @@ export class Story {
     public addInsiderList(insiderList: string[]): this {
 
         const thesis: Thesis = this.getThesis();
-        thesis.insiders.push(...insiderList);
+        for (const insider of insiderList) {
+            if (!thesis.insiders.includes(insider)) {
+                thesis.insiders.push(insider);
+            }
+        }
         return this;
     }
 

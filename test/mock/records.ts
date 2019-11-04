@@ -73,3 +73,27 @@ export const createStoryRecords = (chance: Chance.Chance): FlatRecord[] => {
     ];
 };
 
+export const createThesisStoryRecords = (chance: Chance.Chance): FlatRecord[] => {
+
+    const story: string = chance.string();
+
+    return [
+        {
+            id: chance.string(),
+            at: new Date(),
+            by: chance.string(),
+            story,
+            content: chance.string(),
+            thesis: {
+                insiders: [],
+            },
+        },
+        {
+            id: chance.string(),
+            at: new Date(),
+            by: chance.string(),
+            story,
+            content: chance.string(),
+        },
+    ];
+};
