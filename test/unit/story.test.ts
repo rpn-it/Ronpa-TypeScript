@@ -40,7 +40,7 @@ describe('Given {Story} Class', (): void => {
             story.addInsiders(insider1);
         };
 
-        expect(exec).to.be.throw('Thesis Not Exist');
+        expect(exec).to.be.throw('[Ronpa] Thesis Does Not Exist');
     });
 
     it('should be able to add insider - simple', (): void => {

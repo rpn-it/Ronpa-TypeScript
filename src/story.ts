@@ -122,7 +122,7 @@ export class Story {
     public addRecord(record: FlatRecord): this {
 
         if (record.story !== this._identifier) {
-            throw new Error('Wrong Collection');
+            throw new Error('[Ronpa] Wrong Collection');
         }
 
         const bullet: Bullet = Bullet.fromRecord(record);
@@ -135,7 +135,7 @@ export class Story {
     public addBullet(bullet: Bullet<any>): this {
 
         if (bullet.story !== this._identifier) {
-            throw new Error('Wrong Collection');
+            throw new Error('[Ronpa] Wrong Collection');
         }
 
         if (!this._bulletMap.has(bullet.id)) {
@@ -178,13 +178,13 @@ export class Story {
             return this._thesis;
         }
 
-        throw new Error('Thesis Not Exist');
+        throw new Error('[Ronpa] Thesis Does Not Exist');
     }
 
     public setThesis(bullet: Bullet, thesis: Thesis): this {
 
         if (this._thesisBullet) {
-            throw new Error('Thesis Already Exist');
+            throw new Error('[Ronpa] Thesis Already Exist');
         }
 
         this._thesisBullet = bullet;
