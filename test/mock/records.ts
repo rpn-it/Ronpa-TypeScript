@@ -86,6 +86,9 @@ export const createThesisStoryRecords = (chance: Chance.Chance): FlatRecord[] =>
             content: chance.string(),
             thesis: {
                 insiders: [],
+                extras: {
+                    [chance.string()]: chance.string(),
+                },
             },
         },
         {

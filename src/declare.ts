@@ -14,6 +14,7 @@ export type Reaction = {
 export type Thesis = {
 
     readonly insiders: string[];
+    readonly extras?: Record<string, any>;
 };
 
 export enum RECORD_TYPE {

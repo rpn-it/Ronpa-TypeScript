@@ -126,17 +126,26 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     public setExtra(key: string, value: any): this {
 
         if (this._extras) {
-            this._extras = {
+            return this.updateExtras({
                 ...this._extras,
                 [key]: value,
-            };
-            return this;
+            });
         }
 
-        this._extras = {
+        return this.updateExtras({
             [key]: value,
-        };
+        });
+    }
+
+    public updateExtras(extras: Record<string, any>): this {
+
+        this._extras = extras;
         return this;
+    }
+
+    public getExtras(): Record<string, any> {
+
+        return this._extras || {};
     }
 
     public getExtra(key: string): any {

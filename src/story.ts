@@ -192,6 +192,12 @@ export class Story {
         return this;
     }
 
+    public updateThesis(thesis: Thesis): this {
+
+        this._thesis = thesis;
+        return this;
+    }
+
     public hasBullet(id: string): boolean {
 
         return this._bulletMap.has(id);
@@ -212,6 +218,46 @@ export class Story {
                 ...this._thesisBullet.record(),
                 thesis: this._thesis,
             };
+        }
+        return undefined;
+    }
+
+    public setExtra(key: string, value: any): this {
+
+        const thesis: Thesis = this.getThesis();
+        if (thesis.extras) {
+
+            return this.updateExtras({
+                ...thesis.extras,
+                [key]: value,
+            });
+        }
+
+        return this.updateExtras({
+            [key]: value,
+        });
+    }
+
+    public updateExtras(extras: Record<string, any>): this {
+
+        const thesis: Thesis = this.getThesis();
+        return this.updateThesis({
+            ...thesis,
+            extras,
+        });
+    }
+
+    public getExtras(): Record<string, any> {
+
+        const thesis: Thesis = this.getThesis();
+        return thesis.extras || {};
+    }
+
+    public getExtra(key: string): any {
+
+        const thesis: Thesis = this.getThesis();
+        if (thesis.extras) {
+            return thesis.extras[key];
         }
         return undefined;
     }

@@ -68,4 +68,19 @@ describe('Given {Story} Class', (): void => {
 
         expect(story.getThesis().insiders).to.be.lengthOf(2);
     });
+
+    it('should be able to set extra', (): void => {
+
+        const records: FlatRecord[] = createThesisStoryRecords(chance);
+        const story = Story.fromRecords(records);
+
+        const key: string = chance.string();
+        const value: string = chance.string();
+
+        expect(Object.keys(story.getExtras())).to.be.lengthOf(1);
+
+        story.setExtra(key, value);
+
+        expect(Object.keys(story.getExtras())).to.be.lengthOf(2);
+    });
 });
