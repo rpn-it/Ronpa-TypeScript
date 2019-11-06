@@ -40,17 +40,17 @@ export class Ronpa {
         }, 0);
     }
 
-    public createStory(by: string, content: string): this {
+    public createStory(by: string, content: string, at?: Date): this {
 
         const story: Story = Story.create();
-        story.createThesisBullet(by, content);
+        story.createThesisBullet(by, content, at);
         return this.addStory(story);
     }
 
-    public createAndGetStory(by: string, content: string): Story {
+    public createAndGetStory(by: string, content: string, at?: Date): Story {
 
         const story: Story = Story.create();
-        story.createThesisBullet(by, content);
+        story.createThesisBullet(by, content, at);
         this.addStory(story);
         return story;
     }

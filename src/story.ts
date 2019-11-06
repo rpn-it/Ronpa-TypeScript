@@ -4,13 +4,13 @@
  * @description Story
  */
 
-import { unique } from "@sudoo/random";
+import { randomUnique } from "@sudoo/random";
 import { Bullet } from "./bullet";
 import { FlatRecord, RECORD_TYPE, Thesis } from "./declare";
 
 export class Story {
 
-    public static create(identifier: string = unique()): Story {
+    public static create(identifier: string = randomUnique()): Story {
 
         return new Story(identifier);
     }
@@ -91,31 +91,31 @@ export class Story {
         return this._thesisBullet as Bullet;
     }
 
-    public createThesisBullet(by: string, content: string): this {
+    public createThesisBullet(by: string, content: string, at?: Date): this {
 
-        const bullet: Bullet = Bullet.create(by, content, this._identifier);
+        const bullet: Bullet = Bullet.create(by, content, this._identifier, at);
         this.setThesis(bullet, {
             insiders: [],
         });
         return this;
     }
 
-    public createBullet(by: string, content: string): this {
+    public createBullet(by: string, content: string, at?: Date): this {
 
-        const bullet: Bullet = Bullet.create(by, content, this._identifier);
+        const bullet: Bullet = Bullet.create(by, content, this._identifier, at);
         return this.addBullet(bullet);
     }
 
-    public createAndGetBullet(by: string, content: string): Bullet {
+    public createAndGetBullet(by: string, content: string, at?: Date): Bullet {
 
-        const bullet: Bullet = Bullet.create(by, content, this._identifier);
+        const bullet: Bullet = Bullet.create(by, content, this._identifier, at);
         this.addBullet(bullet);
         return bullet;
     }
 
-    public createFileBullet(by: string, filePath: string, originalName: string): this {
+    public createFileBullet(by: string, filePath: string, originalName: string, at?: Date): this {
 
-        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier);
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier, at);
         return this.addBullet(bullet);
     }
 

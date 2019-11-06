@@ -4,7 +4,7 @@
  * @description Bullet
  */
 
-import { unique } from "@sudoo/random";
+import { randomUnique } from "@sudoo/random";
 import { ContentType, FlatRecord, Reaction, RECORD_TYPE } from "./declare";
 
 export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
@@ -13,13 +13,14 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         from: string,
         content: string,
         story: string,
+        at: Date = new Date(),
         reactions?: Reaction[],
         extras?: Record<string, any>,
     ): Bullet<RECORD_TYPE.TEXT> {
 
         return new Bullet<RECORD_TYPE.TEXT>({
-            id: unique(),
-            at: new Date(),
+            id: randomUnique(),
+            at,
             by: from,
             content,
             story,
@@ -33,13 +34,14 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         filePath: string,
         originalName: string,
         story: string,
+        at: Date = new Date(),
         reactions?: Reaction[],
         extras?: Record<string, any>,
     ): Bullet<RECORD_TYPE.FILE> {
 
         return new Bullet<RECORD_TYPE.FILE>({
-            id: unique(),
-            at: new Date(),
+            id: randomUnique(),
+            at,
             by: from,
             content: {
                 path: filePath,
