@@ -106,6 +106,11 @@ export class Ronpa {
         return null;
     }
 
+    public getThesisStories(): Story[] {
+
+        return this.filterStories((story: Story) => story.hasThesis());
+    }
+
     public hasBullet(id: string): boolean {
 
         for (const story of this._storyList) {
