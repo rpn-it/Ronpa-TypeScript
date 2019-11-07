@@ -211,6 +211,11 @@ export class Story {
         return null;
     }
 
+    public filterBullets(func: (bullet: Bullet, index: number, array: Bullet[]) => boolean): Bullet[] {
+
+        return this._bulletList.filter(func);
+    }
+
     public getThesisRecord(): FlatRecord | undefined {
 
         if (this._thesisBullet && this._thesis) {
@@ -265,6 +270,18 @@ export class Story {
     public flat(): FlatRecord[] {
 
         const bulletRecordList: FlatRecord[] = this._bulletList.map((bullet: Bullet) => bullet.record());
+        const thesisRecord: FlatRecord | undefined = this.getThesisRecord();
+
+        if (thesisRecord) {
+            return [thesisRecord, ...bulletRecordList];
+        }
+        return bulletRecordList;
+    }
+
+    public flatSome(func: (bullet: Bullet, index: number, array: Bullet[]) => boolean): FlatRecord[] {
+
+        const bullets: Bullet[] = this.filterBullets(func);
+        const bulletRecordList: FlatRecord[] = bullets.map((bullet: Bullet) => bullet.record());
         const thesisRecord: FlatRecord | undefined = this.getThesisRecord();
 
         if (thesisRecord) {

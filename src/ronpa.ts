@@ -133,4 +133,13 @@ export class Ronpa {
 
         return records;
     }
+
+    public flatSome(func: (story: Story, index: number, array: Story[]) => boolean): FlatRecord[] {
+
+        const stories: Story[] = this.filterStories(func);
+        const records: FlatRecord[] = [];
+        stories.forEach((story: Story) => records.push(...story.flat()));
+
+        return records;
+    }
 }
