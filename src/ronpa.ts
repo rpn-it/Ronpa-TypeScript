@@ -55,6 +55,11 @@ export class Ronpa {
         return story;
     }
 
+    public filterStories(func: (stroy: Story, index: number, array: Story[]) => boolean): Story[] {
+
+        return this._storyList.filter(func);
+    }
+
     public addRecord(record: FlatRecord): this {
 
         const storyID: string = record.story;
