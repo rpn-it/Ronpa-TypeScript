@@ -151,6 +151,31 @@ export class Story {
         return thesis.insiders;
     }
 
+    public removeInsider(insider: string): this {
+
+        return this.removeInsiders(insider);
+    }
+
+    public removeInsiders(...insiders: string[]): this {
+
+        return this.removeInsiderList(insiders);
+    }
+
+    public removeInsiderList(insiderList: string[]): this {
+
+        const thesis: Thesis = this.getThesis();
+        this._thesis = {
+            ...this._thesis,
+            insiders: thesis.insiders.reduce((previous: string[], current: string) => {
+                if (insiderList.includes(current)) {
+                    return previous;
+                }
+                return [...previous, current];
+            }, []),
+        };
+        return this;
+    }
+
     public addInsider(insider: string): this {
 
         return this.addInsiders(insider);
