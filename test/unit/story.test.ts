@@ -69,6 +69,23 @@ describe('Given {Story} Class', (): void => {
         expect(story.getThesis().insiders).to.be.lengthOf(2);
     });
 
+    it('should be able to remove insider', (): void => {
+
+        const records: FlatRecord[] = createThesisStoryRecords(chance);
+        const story = Story.fromRecords(records);
+
+        const insider1: string = chance.string();
+        const insider2: string = chance.string();
+
+        story.addInsiders(insider1, insider2);
+
+        expect(story.getThesis().insiders).to.be.lengthOf(2);
+
+        story.removeInsiders(insider2);
+
+        expect(story.getThesis().insiders).to.be.lengthOf(1);
+    });
+
     it('should be able to set extra', (): void => {
 
         const records: FlatRecord[] = createThesisStoryRecords(chance);
