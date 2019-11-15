@@ -147,4 +147,14 @@ export class Ronpa {
 
         return records;
     }
+
+    public hash(): string {
+
+        return this.flat().map((record: FlatRecord) => record.id).join('::');
+    }
+
+    public clone() {
+
+        return Ronpa.rebuild(this.flat());
+    }
 }

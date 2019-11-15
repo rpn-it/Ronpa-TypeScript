@@ -314,4 +314,14 @@ export class Story {
         }
         return bulletRecordList;
     }
+
+    public hash(): string {
+
+        return this.flat().map((record: FlatRecord) => record.id).join('::');
+    }
+
+    public clone() {
+
+        return Story.fromRecords(this.flat());
+    }
 }

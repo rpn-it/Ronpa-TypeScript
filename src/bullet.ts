@@ -176,4 +176,14 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         }
         return record;
     }
+
+    public hash(): string {
+
+        return this._id;
+    }
+
+    public clone(): Bullet<T> {
+
+        return new Bullet<T>(this.record());
+    }
 }
