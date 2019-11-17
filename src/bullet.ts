@@ -67,6 +67,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
     private readonly _type: RECORD_TYPE;
     private _reactions?: Reaction[];
+    private _reply?: string;
     private _extras?: Record<string, any>;
 
     private constructor(record: FlatRecord<T>) {
@@ -79,6 +80,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
         this._type = record.type || RECORD_TYPE.TEXT;
         this._reactions = record.reactions;
+        this._reply = record.reply;
         this._extras = record.extras;
     }
 
@@ -102,6 +104,9 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     }
     public get reactions(): Reaction[] {
         return this._reactions || [];
+    }
+    public get reply(): string | undefined {
+        return this._reply;
     }
     public get extras(): Record<string, any> {
         return this._extras || {};
@@ -137,6 +142,12 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         return this.updateExtras({
             [key]: value,
         });
+    }
+
+    public setReply(reply: string): this {
+
+        this._reply = reply;
+        return this;
     }
 
     public updateExtras(extras: Record<string, any>): this {

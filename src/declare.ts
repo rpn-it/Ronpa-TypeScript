@@ -45,5 +45,6 @@ export type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
 
     readonly type?: RECORD_TYPE;
     readonly reactions?: Reaction[];
+    readonly reply?: string;
     readonly extras?: Record<string, any>;
 };
