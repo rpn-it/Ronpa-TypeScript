@@ -17,11 +17,6 @@ export type Thesis = {
     readonly extras?: Record<string, any>;
 };
 
-export enum CHANGE_TYPE {
-
-    THESIS = "THESIS",
-}
-
 export enum RECORD_TYPE {
 
     TEXT = "TEXT",
@@ -53,3 +48,8 @@ export type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
     readonly reply?: string;
     readonly extras?: Record<string, any>;
 };
+
+export type FlatThesisRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
+
+    readonly thesis: Thesis;
+} & FlatRecord<T>;
