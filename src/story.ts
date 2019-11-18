@@ -102,13 +102,13 @@ export class Story {
 
     public createBullet(by: string, content: string, at?: Date): this {
 
-        const bullet: Bullet = Bullet.create(by, content, this._identifier, at);
+        const bullet: Bullet<RECORD_TYPE.TEXT> = Bullet.create(by, content, this._identifier, at);
         return this.addBullet(bullet);
     }
 
-    public createAndGetBullet(by: string, content: string, at?: Date): Bullet {
+    public createAndGetBullet(by: string, content: string, at?: Date): Bullet<RECORD_TYPE.TEXT> {
 
-        const bullet: Bullet = Bullet.create(by, content, this._identifier, at);
+        const bullet: Bullet<RECORD_TYPE.TEXT> = Bullet.create(by, content, this._identifier, at);
         this.addBullet(bullet);
         return bullet;
     }
@@ -117,6 +117,13 @@ export class Story {
 
         const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier, at);
         return this.addBullet(bullet);
+    }
+
+    public createAndGetFileBullet(by: string, filePath: string, originalName: string, at?: Date): Bullet<RECORD_TYPE.FILE> {
+
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier, at);
+        this.addBullet(bullet);
+        return bullet;
     }
 
     public addRecord(record: FlatRecord): this {
