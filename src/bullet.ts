@@ -29,6 +29,28 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         });
     }
 
+    public static createReply(
+        from: string,
+        content: string,
+        story: string,
+        reply: string,
+        at: Date = new Date(),
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
+    ): Bullet<RECORD_TYPE.TEXT> {
+
+        return new Bullet<RECORD_TYPE.TEXT>({
+            id: randomUnique(),
+            at,
+            by: from,
+            content,
+            reply,
+            story,
+            reactions,
+            extras,
+        });
+    }
+
     public static createFile(
         from: string,
         filePath: string,
@@ -54,6 +76,33 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         });
     }
 
+    public static createReplyFile(
+        from: string,
+        filePath: string,
+        originalName: string,
+        story: string,
+        reply: string,
+        at: Date = new Date(),
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
+    ): Bullet<RECORD_TYPE.FILE> {
+
+        return new Bullet<RECORD_TYPE.FILE>({
+            id: randomUnique(),
+            at,
+            by: from,
+            content: {
+                path: filePath,
+                originalName,
+            },
+            reply,
+            type: RECORD_TYPE.FILE,
+            story,
+            reactions,
+            extras,
+        });
+    }
+
     public static createHtml(
         from: string,
         content: string,
@@ -68,6 +117,28 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
             at,
             by: from,
             content,
+            story,
+            reactions,
+            extras,
+        });
+    }
+
+    public static createReplyHtml(
+        from: string,
+        content: string,
+        story: string,
+        reply: string,
+        at: Date = new Date(),
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
+    ): Bullet<RECORD_TYPE.HTML> {
+
+        return new Bullet<RECORD_TYPE.HTML>({
+            id: randomUnique(),
+            at,
+            by: from,
+            content,
+            reply,
             story,
             reactions,
             extras,

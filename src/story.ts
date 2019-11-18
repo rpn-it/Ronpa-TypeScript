@@ -113,6 +113,13 @@ export class Story {
         return bullet;
     }
 
+    public createAndGetReplyBullet(by: string, content: string, reply: string, at?: Date): Bullet<RECORD_TYPE.TEXT> {
+
+        const bullet: Bullet<RECORD_TYPE.TEXT> = Bullet.createReply(by, content, this._identifier, reply, at);
+        this.addBullet(bullet);
+        return bullet;
+    }
+
     public createFileBullet(by: string, filePath: string, originalName: string, at?: Date): this {
 
         const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier, at);
@@ -126,6 +133,13 @@ export class Story {
         return bullet;
     }
 
+    public createAndGetReplyFileBullet(by: string, filePath: string, originalName: string, reply: string, at?: Date): Bullet<RECORD_TYPE.FILE> {
+
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createReplyFile(by, filePath, originalName, this._identifier, reply, at);
+        this.addBullet(bullet);
+        return bullet;
+    }
+
     public createHtmlBullet(by: string, content: string, at?: Date): this {
 
         const bullet: Bullet<RECORD_TYPE.HTML> = Bullet.createHtml(by, content, this._identifier, at);
@@ -135,6 +149,13 @@ export class Story {
     public createAndGetHtmlBullet(by: string, content: string, at?: Date): Bullet<RECORD_TYPE.HTML> {
 
         const bullet: Bullet<RECORD_TYPE.HTML> = Bullet.createHtml(by, content, this._identifier, at);
+        this.addBullet(bullet);
+        return bullet;
+    }
+
+    public createAndGetReplyHtmlBullet(by: string, content: string, reply: string, at?: Date): Bullet<RECORD_TYPE.HTML> {
+
+        const bullet: Bullet<RECORD_TYPE.HTML> = Bullet.createReplyHtml(by, content, this._identifier, reply, at);
         this.addBullet(bullet);
         return bullet;
     }
