@@ -17,6 +17,11 @@ export type Thesis = {
     readonly extras?: Record<string, any>;
 };
 
+export enum CHANGE_TYPE {
+
+    THESIS = "THESIS",
+}
+
 export enum RECORD_TYPE {
 
     TEXT = "TEXT",
