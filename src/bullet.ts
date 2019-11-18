@@ -54,6 +54,26 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         });
     }
 
+    public static createHtml(
+        from: string,
+        content: string,
+        story: string,
+        at: Date = new Date(),
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
+    ): Bullet<RECORD_TYPE.HTML> {
+
+        return new Bullet<RECORD_TYPE.HTML>({
+            id: randomUnique(),
+            at,
+            by: from,
+            content,
+            story,
+            reactions,
+            extras,
+        });
+    }
+
     public static fromRecord<T extends RECORD_TYPE = any>(record: FlatRecord<T>): Bullet<T> {
 
         return new Bullet<T>(record);

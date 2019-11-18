@@ -126,6 +126,19 @@ export class Story {
         return bullet;
     }
 
+    public createHtmlBullet(by: string, content: string, at?: Date): this {
+
+        const bullet: Bullet<RECORD_TYPE.HTML> = Bullet.createHtml(by, content, this._identifier, at);
+        return this.addBullet(bullet);
+    }
+
+    public createAndGetHtmlBullet(by: string, content: string, at?: Date): Bullet<RECORD_TYPE.HTML> {
+
+        const bullet: Bullet<RECORD_TYPE.HTML> = Bullet.createHtml(by, content, this._identifier, at);
+        this.addBullet(bullet);
+        return bullet;
+    }
+
     public addRecord(record: FlatRecord): this {
 
         if (record.story !== this._identifier) {

@@ -30,7 +30,7 @@ export type ContentType<T extends RECORD_TYPE = RECORD_TYPE.TEXT> =
         readonly path: string,
         readonly originalName: string,
     }
-    : T extends RECORD_TYPE.FILE ? string
+    : T extends RECORD_TYPE.HTML ? string
     : never;
 
 export type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
