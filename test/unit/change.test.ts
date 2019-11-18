@@ -15,7 +15,7 @@ describe('Given {Change} Class', (): void => {
 
     it('should be able to create instance', (): void => {
 
-        const change = Change.create();
+        const change = Change.thesis();
 
         expect(change).to.be.instanceOf(Change);
     });
