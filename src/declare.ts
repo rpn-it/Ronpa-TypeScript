@@ -17,9 +17,9 @@ export type Thesis = {
     readonly extras?: Record<string, any>;
 };
 
-export enum CHANGE_TYPE {
+export enum RONPA_ACTION {
 
-    THESIS = "THESIS",
+    ADD_THESIS = "ADD_THESIS",
     REACTION = "REACTION",
 }
 

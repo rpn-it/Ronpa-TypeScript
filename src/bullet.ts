@@ -203,18 +203,18 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         return this._extras || {};
     }
 
-    public addReaction(by: string, type: string): this {
+    public addReaction(by: string, type: string, at: Date = new Date()): this {
 
         if (this._reactions) {
             this._reactions.push({
-                at: new Date(),
+                at,
                 by,
                 type,
             });
             return this;
         }
         this._reactions = [{
-            at: new Date(),
+            at,
             by,
             type,
         }];

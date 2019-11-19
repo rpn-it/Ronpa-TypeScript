@@ -67,6 +67,9 @@ export class Story {
         return this._bulletList;
     }
     public get length(): number {
+        if (this._thesisBullet) {
+            return this._bulletList.length + 1;
+        }
         return this._bulletList.length;
     }
     public get thesisBullet(): Bullet | null {
@@ -266,11 +269,17 @@ export class Story {
 
     public hasBullet(id: string): boolean {
 
+        if (this._thesisBullet && this._thesisBullet.id === id) {
+            return true;
+        }
         return this._bulletMap.has(id);
     }
 
     public getBullet(id: string): Bullet | null {
 
+        if (this._thesisBullet && this._thesisBullet.id === id) {
+            return this._thesisBullet;
+        }
         if (this.hasBullet(id)) {
             return this._bulletMap.get(id) as Bullet;
         }

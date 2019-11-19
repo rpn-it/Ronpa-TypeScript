@@ -4,7 +4,7 @@
  * @description Reaction
  */
 
-import { CHANGE_TYPE } from "../declare";
+import { RONPA_ACTION } from "../declare";
 
 export type ReactionConfig = {
 
@@ -15,7 +15,7 @@ export type ReactionConfig = {
 
 export type ReactionChange = {
 
-    readonly action: CHANGE_TYPE.REACTION;
+    readonly action: RONPA_ACTION.REACTION;
     readonly at: Date;
 } & ReactionConfig;
 
@@ -23,7 +23,7 @@ export const draftReactionChange = (config: ReactionConfig): ReactionChange => {
 
     return {
 
-        action: CHANGE_TYPE.REACTION,
+        action: RONPA_ACTION.REACTION,
         at: new Date(),
         by: config.by,
         bulletId: config.bulletId,

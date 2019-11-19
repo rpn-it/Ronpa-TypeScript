@@ -5,7 +5,8 @@
  */
 
 import { Bullet } from "./bullet";
-import { FlatRecord } from "./declare";
+import { FlatRecord, RONPA_ACTION } from "./declare";
+import { ChangeType } from "./draft/import";
 import { Story } from "./story";
 
 export class Ronpa {
@@ -131,6 +132,11 @@ export class Ronpa {
         return null;
     }
 
+    public assertBullet(id: string): Bullet {
+
+        return this.getBullet(id) as Bullet;
+    }
+
     public flat(): FlatRecord[] {
 
         const records: FlatRecord[] = [];
@@ -153,8 +159,32 @@ export class Ronpa {
         return this.flat().map((record: FlatRecord) => record.id).join('::');
     }
 
-    public clone() {
+    public clone(): Ronpa {
 
         return Ronpa.rebuild(this.flat());
+    }
+
+    public apply(change: ChangeType<any>): this {
+
+        switch (change.action) {
+            case RONPA_ACTION.REACTION: {
+
+                const reaction: ChangeType<RONPA_ACTION.REACTION> = change;
+                const bullet: Bullet | null = this.getBullet(reaction.bulletId);
+                if (!bullet) {
+                    throw new Error('[Ronpa] Undefined Bullet');
+                }
+                bullet.addReaction(reaction.by, reaction.reaction, reaction.at);
+                return this;
+            }
+            case RONPA_ACTION.ADD_THESIS: {
+
+                const thesis: ChangeType<RONPA_ACTION.ADD_THESIS> = change;
+                const story: Story = Story.withRecord(thesis);
+
+                return this.addStory(story);
+            }
+        }
+        return this;
     }
 }
