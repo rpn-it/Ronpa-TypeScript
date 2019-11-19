@@ -286,6 +286,11 @@ export class Story {
         return null;
     }
 
+    public assertBullet(id: string): Bullet {
+
+        return this.getBullet(id) as Bullet;
+    }
+
     public filterBullets(func: (bullet: Bullet, index: number, array: Bullet[]) => boolean): Bullet[] {
 
         return this._bulletList.filter(func);

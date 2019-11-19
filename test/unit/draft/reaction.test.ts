@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { CHANGE_TYPE } from '../../../src/declare';
+import { RONPA_ACTION } from '../../../src/declare';
 import { draftReactionChange, ReactionChange } from '../../../src/draft/import';
 
 describe('Given [Reaction] Change Creation Method', (): void => {
@@ -25,6 +25,6 @@ describe('Given [Reaction] Change Creation Method', (): void => {
             bulletId: chance.string(),
         });
 
-        expect(change.action).to.be.equal(CHANGE_TYPE.REACTION);
+        expect(change.action).to.be.equal(RONPA_ACTION.REACTION);
     });
 });

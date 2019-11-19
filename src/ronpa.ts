@@ -107,6 +107,11 @@ export class Ronpa {
         return null;
     }
 
+    public assertStory(id: string): Story {
+
+        return this.getStory(id) as Story;
+    }
+
     public getThesisStories(): Story[] {
 
         return this.filterStories((story: Story) => story.hasThesis());

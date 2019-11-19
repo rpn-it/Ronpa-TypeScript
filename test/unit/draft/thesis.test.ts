@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { CHANGE_TYPE, RECORD_TYPE } from '../../../src/declare';
+import { RECORD_TYPE, RONPA_ACTION } from '../../../src/declare';
 import { draftThesisChange, ThesisChange } from '../../../src/draft/thesis';
 
 describe('Given [Thesis] Change Creation Method', (): void => {
@@ -27,6 +27,6 @@ describe('Given [Thesis] Change Creation Method', (): void => {
             insiders: [],
         });
 
-        expect(change.action).to.be.equal(CHANGE_TYPE.THESIS);
+        expect(change.action).to.be.equal(RONPA_ACTION.ADD_THESIS);
     });
 });
