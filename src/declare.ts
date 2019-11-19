@@ -20,6 +20,7 @@ export type Thesis = {
 export enum CHANGE_TYPE {
 
     THESIS = "THESIS",
+    REACTION = "REACTION",
 }
 
 export enum RECORD_TYPE {
