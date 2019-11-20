@@ -318,7 +318,11 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
     public hash(): string {
 
-        return this._id;
+        return [
+            this._id,
+            this._by,
+            JSON.stringify(this._content),
+        ].join('::');
     }
 
     public clone(): Bullet<T> {
