@@ -112,6 +112,15 @@ export class Ronpa {
         return this.getStory(id) as Story;
     }
 
+    public ensureStory(id: string): Story {
+
+        const story: Story | null = this.getStory(id);
+        if (!story) {
+            throw new Error('[Ronpa] Undefined Story');
+        }
+        return story;
+    }
+
     public getThesisStories(): Story[] {
 
         return this.filterStories((story: Story) => story.hasThesis());
@@ -181,6 +190,23 @@ export class Ronpa {
     public apply(change: ChangeType<any>): this {
 
         switch (change.action) {
+            case RONPA_ACTION.ADD_THESIS: {
+
+                const thesis: ChangeType<RONPA_ACTION.ADD_THESIS> = change;
+                const story: Story = Story.withRecord(thesis);
+
+                this.addStory(story);
+                return this;
+            }
+            case RONPA_ACTION.ADD_REPLY: {
+
+                const reply: ChangeType<RONPA_ACTION.ADD_REPLY> = change;
+                const story: Story = this.ensureStory(reply.story);
+                const bullet: Bullet = Bullet.create(reply.by, reply.content, reply.story, reply.at, reply.reactions, reply.extras);
+
+                story.addBullet(bullet);
+                return this;
+            }
             case RONPA_ACTION.ADD_REACTION: {
 
                 const reaction: ChangeType<RONPA_ACTION.ADD_REACTION> = change;
@@ -196,13 +222,6 @@ export class Ronpa {
 
                 bullet.removeReaction(reaction.by, reaction.reaction);
                 return this;
-            }
-            case RONPA_ACTION.ADD_THESIS: {
-
-                const thesis: ChangeType<RONPA_ACTION.ADD_THESIS> = change;
-                const story: Story = Story.withRecord(thesis);
-
-                return this.addStory(story);
             }
         }
         return this;
