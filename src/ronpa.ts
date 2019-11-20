@@ -142,6 +142,15 @@ export class Ronpa {
         return this.getBullet(id) as Bullet;
     }
 
+    public ensureBullet(id: string): Bullet {
+
+        const bullet: Bullet | null = this.getBullet(id);
+        if (!bullet) {
+            throw new Error('[Ronpa] Undefined Bullet');
+        }
+        return bullet;
+    }
+
     public flat(): FlatRecord[] {
 
         const records: FlatRecord[] = [];
@@ -172,14 +181,20 @@ export class Ronpa {
     public apply(change: ChangeType<any>): this {
 
         switch (change.action) {
-            case RONPA_ACTION.REACTION: {
+            case RONPA_ACTION.ADD_REACTION: {
 
-                const reaction: ChangeType<RONPA_ACTION.REACTION> = change;
-                const bullet: Bullet | null = this.getBullet(reaction.bulletId);
-                if (!bullet) {
-                    throw new Error('[Ronpa] Undefined Bullet');
-                }
+                const reaction: ChangeType<RONPA_ACTION.ADD_REACTION> = change;
+                const bullet: Bullet = this.ensureBullet(reaction.bulletId);
+
                 bullet.addReaction(reaction.by, reaction.reaction, reaction.at);
+                return this;
+            }
+            case RONPA_ACTION.REMOVE_REACTION: {
+
+                const reaction: ChangeType<RONPA_ACTION.REMOVE_REACTION> = change;
+                const bullet: Bullet = this.ensureBullet(reaction.bulletId);
+
+                bullet.removeReaction(reaction.by, reaction.reaction);
                 return this;
             }
             case RONPA_ACTION.ADD_THESIS: {

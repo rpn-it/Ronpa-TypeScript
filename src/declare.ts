@@ -20,7 +20,8 @@ export type Thesis = {
 export enum RONPA_ACTION {
 
     ADD_THESIS = "ADD_THESIS",
-    REACTION = "REACTION",
+    ADD_REACTION = "ADD_REACTION",
+    REMOVE_REACTION = "REMOVE_REACTION",
 }
 
 export enum RECORD_TYPE {

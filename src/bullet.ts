@@ -203,7 +203,25 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         return this._extras || {};
     }
 
+    public hasReaction(by: string, type: string): boolean {
+
+        if (!this._reactions) {
+            return false;
+        }
+
+        for (const reaction of this._reactions) {
+            if (reaction.by === by && reaction.type === type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public addReaction(by: string, type: string, at: Date = new Date()): this {
+
+        if (this.hasReaction(by, type)) {
+            return this;
+        }
 
         if (this._reactions) {
             this._reactions.push({
@@ -218,6 +236,25 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
             by,
             type,
         }];
+        return this;
+    }
+
+    public removeReaction(by: string, type: string): this {
+
+        if (!this.hasReaction(by, type)) {
+            return this;
+        }
+
+        if (!this._reactions) {
+            return this;
+        }
+
+        this._reactions = this._reactions.reduce((previous: Reaction[], current: Reaction) => {
+            if (current.by === by && current.type === type) {
+                return previous;
+            }
+            return previous.concat([current]);
+        }, [] as Reaction[]);
         return this;
     }
 

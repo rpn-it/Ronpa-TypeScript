@@ -6,24 +6,49 @@
 
 import { RONPA_ACTION } from "../declare";
 
-export type ReactionConfig = {
+export type AddReactionConfig = {
 
     readonly by: string;
     readonly bulletId: string;
     readonly reaction: string;
 };
 
-export type ReactionChange = {
+export type AddReactionChange = {
 
-    readonly action: RONPA_ACTION.REACTION;
+    readonly action: RONPA_ACTION.ADD_REACTION;
     readonly at: Date;
-} & ReactionConfig;
+} & AddReactionConfig;
 
-export const draftReactionChange = (config: ReactionConfig): ReactionChange => {
+export const draftAddReactionChange = (config: AddReactionConfig): AddReactionChange => {
 
     return {
 
-        action: RONPA_ACTION.REACTION,
+        action: RONPA_ACTION.ADD_REACTION,
+        at: new Date(),
+        by: config.by,
+        bulletId: config.bulletId,
+        reaction: config.reaction,
+    };
+};
+
+export type RemoveReactionConfig = {
+
+    readonly by: string;
+    readonly bulletId: string;
+    readonly reaction: string;
+};
+
+export type RemoveReactionChange = {
+
+    readonly action: RONPA_ACTION.REMOVE_REACTION;
+    readonly at: Date;
+} & RemoveReactionConfig;
+
+export const draftRemoveReactionChange = (config: RemoveReactionConfig): RemoveReactionChange => {
+
+    return {
+
+        action: RONPA_ACTION.REMOVE_REACTION,
         at: new Date(),
         by: config.by,
         bulletId: config.bulletId,
