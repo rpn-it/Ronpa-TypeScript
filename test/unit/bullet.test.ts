@@ -76,7 +76,7 @@ describe('Given {Bullet} Class', (): void => {
         expect(another.equals(bullet)).to.be.false;
     });
 
-    it('should be able to compare bullets- happy', (): void => {
+    it('should be able to compare bullets - happy', (): void => {
 
         const from: string = chance.string();
         const content: string = chance.string();

@@ -100,4 +100,35 @@ describe('Given {Story} Class', (): void => {
 
         expect(Object.keys(story.getExtras())).to.be.lengthOf(2);
     });
+
+    it('should be able to compare story - sad', (): void => {
+
+        const records: FlatRecord[] = createStoryRecords(chance);
+        const by: string = chance.string();
+        const content: string = chance.string();
+
+        const story = Story.fromRecords(records);
+        story.createBullet(by, content);
+
+        const another = Story.fromRecords(records);
+        another.createBullet(by, content);
+
+        // tslint:disable-next-line: no-unused-expression
+        expect(another.equals(story)).to.be.false;
+    });
+
+    it('should be able to compare story - happy', (): void => {
+
+        const records: FlatRecord[] = createStoryRecords(chance);
+        const by: string = chance.string();
+        const content: string = chance.string();
+
+        const story = Story.fromRecords(records);
+        story.createBullet(by, content);
+
+        const another = story.clone();
+
+        // tslint:disable-next-line: no-unused-expression
+        expect(another.equals(story)).to.be.true;
+    });
 });

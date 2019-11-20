@@ -42,4 +42,33 @@ describe('Given {Ronpa} Class', (): void => {
         expect(ronpa.flat()).to.be.lengthOf(1);
         expect((ronpa.flat()[0] as any).thesis.insiders).to.be.lengthOf(0);
     });
+
+    it('should be able to compare ronpa - sad', (): void => {
+
+        const by: string = chance.string();
+        const content: string = chance.string();
+
+        const ronpa = Ronpa.create();
+        ronpa.createStory(by, content);
+
+        const another = Ronpa.create();
+        ronpa.createStory(by, content);
+
+        // tslint:disable-next-line: no-unused-expression
+        expect(another.equals(ronpa)).to.be.false;
+    });
+
+    it('should be able to compare ronpa - happy', (): void => {
+
+        const by: string = chance.string();
+        const content: string = chance.string();
+
+        const ronpa = Ronpa.create();
+        ronpa.createStory(by, content);
+
+        const another = ronpa.clone();
+
+        // tslint:disable-next-line: no-unused-expression
+        expect(another.equals(ronpa)).to.be.true;
+    });
 });
