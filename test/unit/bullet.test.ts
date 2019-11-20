@@ -62,4 +62,30 @@ describe('Given {Bullet} Class', (): void => {
             },
         });
     });
+
+    it('should be able to compare bullets - sad', (): void => {
+
+        const from: string = chance.string();
+        const content: string = chance.string();
+        const story: string = chance.string();
+
+        const bullet = Bullet.create(from, content, story);
+        const another = Bullet.create(from, content, story);
+
+        // tslint:disable-next-line: no-unused-expression
+        expect(another.equals(bullet)).to.be.false;
+    });
+
+    it('should be able to compare bullets- happy', (): void => {
+
+        const from: string = chance.string();
+        const content: string = chance.string();
+        const story: string = chance.string();
+
+        const bullet = Bullet.create(from, content, story);
+        const clone: Bullet = bullet.clone();
+
+        // tslint:disable-next-line: no-unused-expression
+        expect(clone.equals(bullet)).to.be.true;
+    });
 });
