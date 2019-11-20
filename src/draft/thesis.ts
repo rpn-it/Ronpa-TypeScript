@@ -7,7 +7,7 @@
 import { randomUnique } from "@sudoo/random";
 import { ContentType, FlatThesisRecord, RECORD_TYPE, RONPA_ACTION } from "../declare";
 
-export type ThesisConfig<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
+export type AddThesisConfig<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
 
     readonly by: string;
     readonly content: ContentType<T>;
@@ -15,12 +15,12 @@ export type ThesisConfig<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
     readonly type: T;
 };
 
-export type ThesisChange<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
+export type AddThesisChange<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
 
     readonly action: RONPA_ACTION.ADD_THESIS;
 } & FlatThesisRecord<T>;
 
-export const draftThesisChange = <T extends RECORD_TYPE = RECORD_TYPE.TEXT>(config: ThesisConfig<T>): ThesisChange<T> => {
+export const draftAddThesisChange = <T extends RECORD_TYPE = RECORD_TYPE.TEXT>(config: AddThesisConfig<T>): AddThesisChange<T> => {
 
     return {
 
