@@ -325,4 +325,13 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
         return new Bullet<T>(this.record());
     }
+
+    public equals(another: Bullet): boolean {
+
+        if (typeof another.hash !== 'function') {
+            return false;
+        }
+
+        return another.hash() === this.hash();
+    }
 }

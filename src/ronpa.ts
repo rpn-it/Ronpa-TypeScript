@@ -187,6 +187,15 @@ export class Ronpa {
         return Ronpa.rebuild(this.flat());
     }
 
+    public equals(another: Ronpa): boolean {
+
+        if (typeof another.hash !== 'function') {
+            return false;
+        }
+
+        return another.hash() === this.hash();
+    }
+
     public apply(change: ChangeType<any>): this {
 
         switch (change.action) {

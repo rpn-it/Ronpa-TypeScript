@@ -379,4 +379,13 @@ export class Story {
 
         return Story.fromRecords(this.flat());
     }
+
+    public equals(another: Story): boolean {
+
+        if (typeof another.hash !== 'function') {
+            return false;
+        }
+
+        return another.hash() === this.hash();
+    }
 }
