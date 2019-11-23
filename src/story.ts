@@ -6,7 +6,7 @@
 
 import { randomUnique } from "@sudoo/random";
 import { Bullet } from "./bullet";
-import { FlatRecord, RECORD_TYPE, Thesis } from "./declare";
+import { FlatRecord, RECORD_TYPE, Thesis, FileContent } from "./declare";
 
 export class Story {
 
@@ -123,22 +123,22 @@ export class Story {
         return bullet;
     }
 
-    public createFileBullet(by: string, filePath: string, originalName: string, at?: Date): this {
+    public createFileBullet(by: string, files: FileContent[], at?: Date): this {
 
-        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier, at);
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, files, this._identifier, at);
         return this.addBullet(bullet);
     }
 
-    public createAndGetFileBullet(by: string, filePath: string, originalName: string, at?: Date): Bullet<RECORD_TYPE.FILE> {
+    public createAndGetFileBullet(by: string, files: FileContent[], at?: Date): Bullet<RECORD_TYPE.FILE> {
 
-        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, filePath, originalName, this._identifier, at);
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, files, this._identifier, at);
         this.addBullet(bullet);
         return bullet;
     }
 
-    public createAndGetReplyFileBullet(by: string, filePath: string, originalName: string, reply: string, at?: Date): Bullet<RECORD_TYPE.FILE> {
+    public createAndGetReplyFileBullet(by: string, files: FileContent[], reply: string, at?: Date): Bullet<RECORD_TYPE.FILE> {
 
-        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createReplyFile(by, filePath, originalName, this._identifier, reply, at);
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createReplyFile(by, files, this._identifier, reply, at);
         this.addBullet(bullet);
         return bullet;
     }

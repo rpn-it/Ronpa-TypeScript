@@ -5,7 +5,7 @@
  */
 
 import { randomUnique } from "@sudoo/random";
-import { ContentType, FlatRecord, Reaction, RECORD_TYPE } from "./declare";
+import { ContentType, FileContent, FlatRecord, Reaction, RECORD_TYPE } from "./declare";
 
 export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
@@ -53,8 +53,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
     public static createFile(
         from: string,
-        filePath: string,
-        originalName: string,
+        files: FileContent[],
         story: string,
         at: Date = new Date(),
         reactions?: Reaction[],
@@ -65,10 +64,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
             id: randomUnique(),
             at,
             by: from,
-            content: {
-                path: filePath,
-                originalName,
-            },
+            content: files,
             type: RECORD_TYPE.FILE,
             story,
             reactions,
@@ -78,8 +74,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
     public static createReplyFile(
         from: string,
-        filePath: string,
-        originalName: string,
+        files: FileContent[],
         story: string,
         reply: string,
         at: Date = new Date(),
@@ -91,10 +86,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
             id: randomUnique(),
             at,
             by: from,
-            content: {
-                path: filePath,
-                originalName,
-            },
+            content: files,
             reply,
             type: RECORD_TYPE.FILE,
             story,
