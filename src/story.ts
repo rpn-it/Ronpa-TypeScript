@@ -6,7 +6,7 @@
 
 import { randomUnique } from "@sudoo/random";
 import { Bullet } from "./bullet";
-import { FlatRecord, RECORD_TYPE, Thesis, FileContent } from "./declare";
+import { FileContent, FlatRecord, RECORD_TYPE, Thesis } from "./declare";
 
 export class Story {
 
