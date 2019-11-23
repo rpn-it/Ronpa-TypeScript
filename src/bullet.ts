@@ -5,7 +5,7 @@
  */
 
 import { randomUnique } from "@sudoo/random";
-import { ContentType, FileContent, FlatRecord, Reaction, RECORD_TYPE } from "./declare";
+import { ContentType, EditHistory, FileContent, FlatRecord, Reaction, RECORD_TYPE } from "./declare";
 
 export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
@@ -146,10 +146,12 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     private readonly _at: Date;
     private readonly _by: string;
     private readonly _story: string;
-    private readonly _content: ContentType<T>;
+
+    private _content: ContentType<T>;
 
     private readonly _type: RECORD_TYPE;
     private _reactions?: Reaction[];
+    private _editHistories?: Array<EditHistory<T>>;
     private _reply?: string;
     private _extras?: Record<string, any>;
 
@@ -163,6 +165,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
         this._type = record.type || RECORD_TYPE.TEXT;
         this._reactions = record.reactions;
+        this._editHistories = record.editHistories;
         this._reply = record.reply;
         this._extras = record.extras;
     }
@@ -193,6 +196,9 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     }
     public get extras(): Record<string, any> {
         return this._extras || {};
+    }
+    public get editHistories(): Array<EditHistory<T>> {
+        return this._editHistories || [];
     }
 
     public hasReaction(by: string, type: string): boolean {

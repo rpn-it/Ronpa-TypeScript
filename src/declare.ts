@@ -45,6 +45,14 @@ export type ContentType<T extends RECORD_TYPE = RECORD_TYPE.TEXT> =
     : T extends RECORD_TYPE.HTML ? string
     : never;
 
+export type EditHistory<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
+
+    readonly at: Date;
+    readonly by: string;
+    readonly before: ContentType<T>;
+    readonly after: ContentType<T>;
+};
+
 export type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
 
     readonly id: string;
@@ -57,6 +65,7 @@ export type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
 
     readonly type?: RECORD_TYPE;
     readonly reactions?: Reaction[];
+    readonly editHistories?: Array<EditHistory<T>>;
     readonly reply?: string;
     readonly extras?: Record<string, any>;
 };
