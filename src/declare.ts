@@ -32,6 +32,13 @@ export enum RECORD_TYPE {
     HTML = "HTML",
 }
 
+export type FileContent = {
+
+    readonly path: string;
+    readonly originalName: string;
+    readonly mimeType: string;
+};
+
 export type ContentType<T extends RECORD_TYPE = RECORD_TYPE.TEXT> =
     T extends RECORD_TYPE.TEXT ? string
     : T extends RECORD_TYPE.FILE ? {
