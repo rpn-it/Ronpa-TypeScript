@@ -201,6 +201,39 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         return this._editHistories || [];
     }
 
+    public editContent(newContent: ContentType<T>, by: string, at?: Date): this {
+
+        this.pushEditHistory(newContent, by, at);
+        this._content = newContent;
+        return this;
+    }
+
+    public pushEditHistory(newContent: ContentType<T>, by: string, at: Date = new Date()): this {
+
+        const oldContent: ContentType<T> = this._content;
+        if (!this._editHistories) {
+            this._editHistories = [
+                {
+                    at,
+                    by,
+                    before: oldContent,
+                    after: newContent,
+                },
+            ];
+            return this;
+        }
+        this._editHistories = [
+            ...this._editHistories,
+            {
+                at,
+                by,
+                before: oldContent,
+                after: newContent,
+            },
+        ];
+        return this;
+    }
+
     public hasReaction(by: string, type: string): boolean {
 
         if (!this._reactions) {
@@ -304,6 +337,9 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
         if (this._reactions) {
             (record as any).reactions = this._reactions;
+        }
+        if (this._editHistories) {
+            (record as any).editHistories = this._editHistories;
         }
         if (this._type !== RECORD_TYPE.TEXT) {
             (record as any).type = this._type;
