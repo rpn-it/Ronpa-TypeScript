@@ -5,7 +5,7 @@
  */
 
 import { Bullet } from "./bullet";
-import { FlatRecord, RONPA_ACTION } from "./declare";
+import { FileContent, FlatRecord, RONPA_ACTION } from "./declare";
 import { ChangeType } from "./draft/import";
 import { Story } from "./story";
 
@@ -43,15 +43,28 @@ export class Ronpa {
 
     public createStory(by: string, content: string, at?: Date): this {
 
-        const story: Story = Story.create();
-        story.createThesisBullet(by, content, at);
-        return this.addStory(story);
+        this.createAndGetStory(by, content, at);
+        return this;
     }
 
     public createAndGetStory(by: string, content: string, at?: Date): Story {
 
         const story: Story = Story.create();
         story.createThesisBullet(by, content, at);
+        this.addStory(story);
+        return story;
+    }
+
+    public createFileStory(by: string, files: FileContent[], at?: Date): this {
+
+        this.createAndGetFileStory(by, files, at);
+        return this;
+    }
+
+    public createAndGetFileStory(by: string, files: FileContent[], at?: Date): Story {
+
+        const story: Story = Story.create();
+        story.createFileThesisBullet(by, files, at);
         this.addStory(story);
         return story;
     }

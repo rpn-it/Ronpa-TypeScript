@@ -43,7 +43,7 @@ export class Story {
 
     private readonly _identifier: string;
 
-    private _thesisBullet: Bullet | null;
+    private _thesisBullet: Bullet<any> | null;
     private _thesis: Thesis | null;
 
     private readonly _bulletMap: Map<string, Bullet>;
@@ -97,6 +97,15 @@ export class Story {
     public createThesisBullet(by: string, content: string, at?: Date): this {
 
         const bullet: Bullet = Bullet.create(by, content, this._identifier, at);
+        this.setThesis(bullet, {
+            insiders: [],
+        });
+        return this;
+    }
+
+    public createFileThesisBullet(by: string, files: FileContent[], at?: Date): this {
+
+        const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createFile(by, files, this._identifier, at);
         this.setThesis(bullet, {
             insiders: [],
         });
@@ -250,7 +259,7 @@ export class Story {
         throw new Error('[Ronpa] Thesis Does Not Exist');
     }
 
-    public setThesis(bullet: Bullet, thesis: Thesis): this {
+    public setThesis<T extends RECORD_TYPE = RECORD_TYPE.TEXT>(bullet: Bullet<T>, thesis: Thesis): this {
 
         if (this._thesisBullet) {
             throw new Error('[Ronpa] Thesis Already Exist');
@@ -296,7 +305,7 @@ export class Story {
         return this._bulletList.filter(func);
     }
 
-    public getThesisRecord(): FlatRecord | undefined {
+    public getThesisRecord(): FlatRecord<any> | undefined {
 
         if (this._thesisBullet && this._thesis) {
             return {
