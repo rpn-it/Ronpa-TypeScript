@@ -34,7 +34,7 @@ export class Story {
         return story;
     }
 
-    public static fromThesis(bullet: Bullet, thesis: Thesis): Story {
+    public static fromThesis(bullet: Bullet<any>, thesis: Thesis): Story {
 
         const story: Story = this.create(bullet.story);
         story.setThesis(bullet, thesis);
@@ -46,14 +46,14 @@ export class Story {
     private _thesisBullet: Bullet<any> | null;
     private _thesis: Thesis | null;
 
-    private readonly _bulletMap: Map<string, Bullet>;
-    private readonly _bulletList: Bullet[];
+    private readonly _bulletMap: Map<string, Bullet<any>>;
+    private readonly _bulletList: Array<Bullet<any>>;
 
     private constructor(identifier: string) {
 
         this._identifier = identifier;
 
-        this._bulletMap = new Map<string, Bullet>();
+        this._bulletMap = new Map<string, Bullet<any>>();
         this._bulletList = [];
 
         this._thesisBullet = null;
@@ -63,7 +63,7 @@ export class Story {
     public get id(): string {
         return this._identifier;
     }
-    public get bullets(): Bullet[] {
+    public get bullets(): Array<Bullet<any>> {
         return this._bulletList;
     }
     public get length(): number {
@@ -72,7 +72,7 @@ export class Story {
         }
         return this._bulletList.length;
     }
-    public get thesisBullet(): Bullet | null {
+    public get thesisBullet(): Bullet<any> | null {
         return this._thesisBullet;
     }
     public get thesis(): Thesis | null {
@@ -89,9 +89,9 @@ export class Story {
         return this._thesis as Thesis;
     }
 
-    public assertThesisBullet(): Bullet {
+    public assertThesisBullet(): Bullet<any> {
 
-        return this._thesisBullet as Bullet;
+        return this._thesisBullet as Bullet<any>;
     }
 
     public createThesisBullet(by: string, content: string, at?: Date): this {
@@ -178,7 +178,7 @@ export class Story {
             throw new Error('[Ronpa] Wrong Collection');
         }
 
-        const bullet: Bullet = Bullet.fromRecord(record);
+        const bullet: Bullet<any> = Bullet.fromRecord(record);
         if (record.thesis) {
             return this.setThesis(bullet, record.thesis);
         }
@@ -284,23 +284,23 @@ export class Story {
         return this._bulletMap.has(id);
     }
 
-    public getBullet(id: string): Bullet | null {
+    public getBullet(id: string): Bullet<any> | null {
 
         if (this._thesisBullet && this._thesisBullet.id === id) {
             return this._thesisBullet;
         }
         if (this.hasBullet(id)) {
-            return this._bulletMap.get(id) as Bullet;
+            return this._bulletMap.get(id) as Bullet<any>;
         }
         return null;
     }
 
-    public assertBullet(id: string): Bullet {
+    public assertBullet(id: string): Bullet<any> {
 
-        return this.getBullet(id) as Bullet;
+        return this.getBullet(id) as Bullet<any>;
     }
 
-    public filterBullets(func: (bullet: Bullet, index: number, array: Bullet[]) => boolean): Bullet[] {
+    public filterBullets(func: (bullet: Bullet<any>, index: number, array: Array<Bullet<any>>) => boolean): Array<Bullet<any>> {
 
         return this._bulletList.filter(func);
     }
