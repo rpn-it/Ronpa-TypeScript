@@ -28,6 +28,7 @@ export enum RONPA_ACTION {
 export enum RECORD_TYPE {
 
     TEXT = "TEXT",
+    ATTACHMENT = "ATTACHMENT",
     FILE = "FILE",
     HTML = "HTML",
 }
@@ -39,8 +40,15 @@ export type FileContent = {
     readonly mimeType: string;
 };
 
+export type AttachmentContent = {
+
+    readonly text: string;
+    readonly files: FileContent[];
+};
+
 export type ContentType<T extends RECORD_TYPE = RECORD_TYPE.TEXT> =
     T extends RECORD_TYPE.TEXT ? string
+    : T extends RECORD_TYPE.ATTACHMENT ? AttachmentContent
     : T extends RECORD_TYPE.FILE ? FileContent[]
     : T extends RECORD_TYPE.HTML ? string
     : never;
