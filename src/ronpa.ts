@@ -69,6 +69,20 @@ export class Ronpa {
         return story;
     }
 
+    public createAttachmentStory(by: string, text: string, files: FileContent[], at?: Date): this {
+
+        this.createAndGetAttachmentStory(by, text, files, at);
+        return this;
+    }
+
+    public createAndGetAttachmentStory(by: string, text: string, files: FileContent[], at?: Date): Story {
+
+        const story: Story = Story.create();
+        story.createAttachmentThesisBullet(by, text, files, at);
+        this.addStory(story);
+        return story;
+    }
+
     public filterStories(func: (stroy: Story, index: number, array: Story[]) => boolean): Story[] {
 
         return this._storyList.filter(func);

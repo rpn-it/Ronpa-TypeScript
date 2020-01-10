@@ -95,6 +95,58 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         });
     }
 
+    public static createAttachment(
+        from: string,
+        text: string,
+        files: FileContent[],
+        story: string,
+        at: Date = new Date(),
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
+    ): Bullet<RECORD_TYPE.ATTACHMENT> {
+
+        return new Bullet<RECORD_TYPE.ATTACHMENT>({
+            id: randomUnique(),
+            at,
+            by: from,
+            content: {
+                text,
+                files,
+            },
+            type: RECORD_TYPE.FILE,
+            story,
+            reactions,
+            extras,
+        });
+    }
+
+    public static createReplyAttachment(
+        from: string,
+        text: string,
+        files: FileContent[],
+        story: string,
+        reply: string,
+        at: Date = new Date(),
+        reactions?: Reaction[],
+        extras?: Record<string, any>,
+    ): Bullet<RECORD_TYPE.ATTACHMENT> {
+
+        return new Bullet<RECORD_TYPE.ATTACHMENT>({
+            id: randomUnique(),
+            at,
+            by: from,
+            content: {
+                text,
+                files,
+            },
+            reply,
+            type: RECORD_TYPE.FILE,
+            story,
+            reactions,
+            extras,
+        });
+    }
+
     public static createHtml(
         from: string,
         content: string,

@@ -112,6 +112,15 @@ export class Story {
         return this;
     }
 
+    public createAttachmentThesisBullet(by: string, text: string, files: FileContent[], at?: Date): this {
+
+        const bullet: Bullet<RECORD_TYPE.ATTACHMENT> = Bullet.createAttachment(by, text, files, this._identifier, at);
+        this.setThesis(bullet, {
+            insiders: [],
+        });
+        return this;
+    }
+
     public createBullet(by: string, content: string, at?: Date): this {
 
         const bullet: Bullet<RECORD_TYPE.TEXT> = Bullet.create(by, content, this._identifier, at);
@@ -148,6 +157,26 @@ export class Story {
     public createAndGetReplyFileBullet(by: string, files: FileContent[], reply: string, at?: Date): Bullet<RECORD_TYPE.FILE> {
 
         const bullet: Bullet<RECORD_TYPE.FILE> = Bullet.createReplyFile(by, files, this._identifier, reply, at);
+        this.addBullet(bullet);
+        return bullet;
+    }
+
+    public createAttachmentBullet(by: string, text: string, files: FileContent[], at?: Date): this {
+
+        const bullet: Bullet<RECORD_TYPE.ATTACHMENT> = Bullet.createAttachment(by, text, files, this._identifier, at);
+        return this.addBullet(bullet);
+    }
+
+    public createAndGetAttachmentBullet(by: string, text: string, files: FileContent[], at?: Date): Bullet<RECORD_TYPE.ATTACHMENT> {
+
+        const bullet: Bullet<RECORD_TYPE.ATTACHMENT> = Bullet.createAttachment(by, text, files, this._identifier, at);
+        this.addBullet(bullet);
+        return bullet;
+    }
+
+    public createAndGetReplyAttachmentBullet(by: string, text: string, files: FileContent[], reply: string, at?: Date): Bullet<RECORD_TYPE.ATTACHMENT> {
+
+        const bullet: Bullet<RECORD_TYPE.ATTACHMENT> = Bullet.createReplyAttachment(by, text, files, this._identifier, reply, at);
         this.addBullet(bullet);
         return bullet;
     }
