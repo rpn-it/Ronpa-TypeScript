@@ -21,6 +21,7 @@ coverage
 dist
 temp
 app
+yarn.lock
 
 # nyc test coverage
 .nyc_output
