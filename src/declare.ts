@@ -38,6 +38,9 @@ export type FileContent = {
     readonly path: string;
     readonly originalName: string;
     readonly mimeType: string;
+
+    readonly lastModifyAt?: Date;
+    readonly uploadedAt?: Date;
 };
 
 export type AttachmentContent = {
