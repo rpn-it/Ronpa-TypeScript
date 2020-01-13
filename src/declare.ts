@@ -38,6 +38,7 @@ export type FileContent = {
     readonly path: string;
     readonly originalName: string;
     readonly mimeType: string;
+    readonly size: number;
 
     readonly lastModifyAt?: Date;
     readonly uploadedAt?: Date;
