@@ -35,6 +35,7 @@ export enum RECORD_TYPE {
 
 export type FileContent = {
 
+    readonly id: string;
     readonly path: string;
     readonly originalName: string;
     readonly mimeType: string;
