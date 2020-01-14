@@ -238,7 +238,7 @@ export class Ronpa {
 
                 const reply: ChangeType<RONPA_ACTION.ADD_REPLY> = change;
                 const story: Story = this.ensureStory(reply.story);
-                const bullet: Bullet = Bullet.create(reply.by, reply.content, reply.story, reply.at, reply.reactions, reply.extras);
+                const bullet: Bullet = Bullet.fromRecord(reply);
 
                 story.addBullet(bullet);
                 return this;
