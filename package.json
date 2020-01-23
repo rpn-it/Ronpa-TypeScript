@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/SudoDotDog/Ronpa-TypeScript#readme",
   "dependencies": {
-    "@sudoo/random": "^2.0.3"
+    "@sudoo/random": "^2.0.4"
   },
   "devDependencies": {
     "@sudoo/io": "^1.6.2",
