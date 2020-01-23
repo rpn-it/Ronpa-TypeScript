@@ -66,6 +66,8 @@ export type EditHistory<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
     readonly after: ContentType<T>;
 };
 
+export type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+
 export type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
 
     readonly id: string;
@@ -80,6 +82,10 @@ export type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
     readonly reactions?: Reaction[];
     readonly editHistories?: Array<EditHistory<T>>;
     readonly reply?: string;
+
+    readonly isRobot?: boolean;
+    readonly isGenerated?: boolean;
+
     readonly extras?: Record<string, any>;
 };
 

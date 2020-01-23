@@ -5,7 +5,7 @@
  */
 
 import { randomUnique } from "@sudoo/random";
-import { ContentType, EditHistory, FileContent, FlatRecord, Reaction, RECORD_TYPE } from "./declare";
+import { ContentType, EditHistory, FileContent, FlatRecord, Reaction, RECORD_TYPE, Writeable } from "./declare";
 
 export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
@@ -205,6 +205,10 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     private _reactions?: Reaction[];
     private _editHistories?: Array<EditHistory<T>>;
     private _reply?: string;
+
+    private _isRobot?: boolean;
+    private _isGenerated?: boolean;
+
     private _extras?: Record<string, any>;
 
     private constructor(record: FlatRecord<T>) {
@@ -219,6 +223,10 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         this._reactions = record.reactions;
         this._editHistories = record.editHistories;
         this._reply = record.reply;
+
+        this._isRobot = record.isRobot;
+        this._isGenerated = record.isGenerated;
+
         this._extras = record.extras;
     }
 
@@ -245,6 +253,12 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     }
     public get reply(): string | undefined {
         return this._reply;
+    }
+    public get isRobot(): boolean {
+        return Boolean(this._isRobot);
+    }
+    public get isGenerated(): boolean {
+        return Boolean(this._isGenerated);
     }
     public get extras(): Record<string, any> {
         return this._extras || {};
@@ -367,6 +381,16 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         return this;
     }
 
+    public setIsRobot(isRobot: boolean = true): this {
+        this._isRobot = isRobot;
+        return this;
+    }
+
+    public setIsGenerated(isGenerated: boolean = true): this {
+        this._isGenerated = isGenerated;
+        return this;
+    }
+
     public getExtras(): Record<string, any> {
 
         return this._extras || {};
@@ -379,7 +403,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
     public record(): FlatRecord<T> {
 
-        const record: FlatRecord<T> = {
+        const record: Writeable<FlatRecord<T>> = {
             id: this._id,
             at: this._at,
             by: this._by,
@@ -388,18 +412,24 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         };
 
         if (this._reactions) {
-            (record as any).reactions = this._reactions;
+            record.reactions = this._reactions;
         }
         if (this._editHistories) {
-            (record as any).editHistories = this._editHistories;
+            record.editHistories = this._editHistories;
         }
         if (this._type !== RECORD_TYPE.TEXT) {
-            (record as any).type = this._type;
+            record.type = this._type;
         }
         if (this._extras) {
-            (record as any).extras = this._extras;
+            record.extras = this._extras;
         }
-        return record;
+        if (this._isRobot) {
+            record.isRobot = this._isRobot;
+        }
+        if (this._isGenerated) {
+            record.isGenerated = this._isGenerated;
+        }
+        return record as FlatRecord<T>;
     }
 
     public hash(): string {
