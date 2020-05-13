@@ -222,8 +222,8 @@ export class Story {
 
         if (!this._bulletMap.has(bullet.id)) {
             this._bulletList.push(bullet);
+            this._bulletMap.set(bullet.id, bullet);
         }
-        this._bulletMap.set(bullet.id, bullet);
         return this;
     }
 

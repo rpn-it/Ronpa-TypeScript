@@ -1,6 +1,6 @@
 {
   "name": "ronpa",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "description": ":speech_balloon: Comments Management for TypeScript",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@sudoo/io": "^1.7.0",
-    "@sudoo/triforce": "^2.2.1"
+    "@sudoo/triforce": "^2.4.0"
   },
   "nyc": {
     "extension": [

@@ -116,8 +116,8 @@ export class Ronpa {
 
         if (!this._storyMap.has(story.id)) {
             this._storyList.push(story);
+            this._storyMap.set(story.id, story);
         }
-        this._storyMap.set(story.id, story);
         return this;
     }
 
