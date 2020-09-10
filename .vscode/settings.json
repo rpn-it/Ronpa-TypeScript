@@ -8,6 +8,7 @@
         "codecov",
         "deserialize",
         "ifeq",
+        "mocharc",
         "setx",
         "splited",
         "sudoo",
