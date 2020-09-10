@@ -119,8 +119,8 @@ describe('Given {Ronpa} Class Apply Scenarios', (): void => {
         const reactions: Reaction[] = ronpa.assertBullet(bullet1Id).reactions;
 
         expect(reactions).to.be.lengthOf(1);
-        expect((reactions[0] as Reaction).by).to.be.equal(reactionCreatUser);
-        expect((reactions[0] as Reaction).type).to.be.equal(reaction);
+        expect((reactions[0]).by).to.be.equal(reactionCreatUser);
+        expect((reactions[0]).type).to.be.equal(reaction);
     });
 
     it('should be able to apply bullet remove reaction change', (): void => {

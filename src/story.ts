@@ -27,7 +27,7 @@ export class Story {
             return this.create();
         }
 
-        const story: Story = this.withRecord(records[0] as FlatRecord);
+        const story: Story = this.withRecord(records[0]);
         for (const record of records.slice(1)) {
             story.addRecord(record);
         }
@@ -413,7 +413,7 @@ export class Story {
         return this.flat().map((record: FlatRecord) => record.id).join('::');
     }
 
-    public clone() {
+    public clone(): Story {
 
         return Story.fromRecords(this.flat());
     }
