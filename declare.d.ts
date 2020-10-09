@@ -55,6 +55,7 @@ export declare type FlatRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {
     readonly reply?: string;
     readonly isRobot?: boolean;
     readonly isGenerated?: boolean;
+    readonly isRead?: boolean;
     readonly extras?: Record<string, any>;
 };
 export declare type FlatThesisRecord<T extends RECORD_TYPE = RECORD_TYPE.TEXT> = {

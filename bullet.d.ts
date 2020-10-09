@@ -21,6 +21,7 @@ export declare class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     private _isRobot?;
     private _isGenerated?;
     private _extras?;
+    private _isRead?;
     private constructor();
     get id(): string;
     get at(): Date;
@@ -34,6 +35,7 @@ export declare class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     get isGenerated(): boolean;
     get extras(): Record<string, any>;
     get editHistories(): Array<EditHistory<T>>;
+    get read(): boolean;
     editContent(newContent: ContentType<T>, by: string, at?: Date): this;
     pushEditHistory(newContent: ContentType<T>, by: string, at?: Date): this;
     hasReaction(by: string, type: string): boolean;
@@ -46,6 +48,7 @@ export declare class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     setIsGenerated(isGenerated?: boolean): this;
     getExtras(): Record<string, any>;
     getExtra(key: string): any;
+    setRead(read?: boolean): this;
     record(): FlatRecord<T>;
     hash(): string;
     clone(): Bullet<T>;

@@ -5,7 +5,6 @@ const random_1 = require("@sudoo/random");
 const bullet_1 = require("./bullet");
 class Story {
     constructor(identifier) {
-        this._read = false;
         this._identifier = identifier;
         this._bulletMap = new Map();
         this._bulletList = [];
@@ -51,12 +50,6 @@ class Story {
     }
     get thesis() {
         return this._thesis;
-    }
-    get read() {
-        return this._read;
-    }
-    setRead(read) {
-        this._read = read;
     }
     hasThesis() {
         return Boolean(this._thesisBullet) && Boolean(this._thesis);

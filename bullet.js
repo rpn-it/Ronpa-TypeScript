@@ -16,6 +16,7 @@ class Bullet {
         this._reply = record.reply;
         this._isRobot = record.isRobot;
         this._isGenerated = record.isGenerated;
+        this._isRead = record.isRead;
         this._extras = record.extras;
     }
     static create(from, content, story, at = new Date(), reactions, extras) {
@@ -159,6 +160,9 @@ class Bullet {
     get editHistories() {
         return this._editHistories || [];
     }
+    get read() {
+        return Boolean(this._isRead);
+    }
     editContent(newContent, by, at) {
         this.pushEditHistory(newContent, by, at);
         this._content = newContent;
@@ -263,6 +267,10 @@ class Bullet {
     getExtra(key) {
         return this.extras[key];
     }
+    setRead(read = true) {
+        this._isRead = read;
+        return this;
+    }
     record() {
         const record = {
             id: this._id,
@@ -288,6 +296,9 @@ class Bullet {
         }
         if (this._isGenerated) {
             record.isGenerated = this._isGenerated;
+        }
+        if (this._isRead) {
+            record.isRead = this._isRead;
         }
         return record;
     }

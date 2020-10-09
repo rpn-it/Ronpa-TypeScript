@@ -8,7 +8,6 @@ export declare class Story {
     private readonly _identifier;
     private _thesisBullet;
     private _thesis;
-    private _read;
     private readonly _bulletMap;
     private readonly _bulletList;
     private constructor();
@@ -17,8 +16,6 @@ export declare class Story {
     get length(): number;
     get thesisBullet(): Bullet<any> | null;
     get thesis(): Thesis | null;
-    get read(): boolean;
-    setRead(read: boolean): void;
     hasThesis(): boolean;
     assertThesis(): Thesis;
     assertThesisBullet(): Bullet<any>;
