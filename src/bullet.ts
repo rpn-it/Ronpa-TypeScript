@@ -210,6 +210,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     private _isGenerated?: boolean;
 
     private _extras?: Record<string, any>;
+    private _isRead?: boolean;
 
     private constructor(record: FlatRecord<T>) {
 
@@ -226,6 +227,7 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
 
         this._isRobot = record.isRobot;
         this._isGenerated = record.isGenerated;
+        this._isRead = record.isRead;
 
         this._extras = record.extras;
     }
@@ -265,6 +267,9 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
     }
     public get editHistories(): Array<EditHistory<T>> {
         return this._editHistories || [];
+    }
+    public get read(): boolean {
+        return Boolean(this._isRead);
     }
 
     public editContent(newContent: ContentType<T>, by: string, at?: Date): this {
@@ -401,6 +406,11 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         return this.extras[key];
     }
 
+    public setRead(read: boolean = true): this {
+        this._isRead = read;
+        return this;
+    }
+
     public record(): FlatRecord<T> {
 
         const record: Writeable<FlatRecord<T>> = {
@@ -428,6 +438,9 @@ export class Bullet<T extends RECORD_TYPE = RECORD_TYPE.TEXT> {
         }
         if (this._isGenerated) {
             record.isGenerated = this._isGenerated;
+        }
+        if (this._isRead) {
+            record.isRead = this._isRead;
         }
         return record as FlatRecord<T>;
     }

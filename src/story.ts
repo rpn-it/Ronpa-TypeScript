@@ -45,7 +45,6 @@ export class Story {
 
     private _thesisBullet: Bullet<any> | null;
     private _thesis: Thesis | null;
-    private _read: boolean = false;
 
     private readonly _bulletMap: Map<string, Bullet<any>>;
     private readonly _bulletList: Array<Bullet<any>>;
@@ -78,13 +77,6 @@ export class Story {
     }
     public get thesis(): Thesis | null {
         return this._thesis;
-    }
-    public get read(): boolean {
-        return this._read;
-    }
-
-    public setRead(read: boolean): void {
-        this._read = read;
     }
 
     public hasThesis(): boolean {
