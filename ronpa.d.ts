@@ -1,0 +1,38 @@
+import { Bullet } from "./bullet";
+import { FileContent, FlatRecord } from "./declare";
+import { ChangeType } from "./draft/import";
+import { Story } from "./story";
+export declare class Ronpa {
+    static create(): Ronpa;
+    static rebuild(records: FlatRecord[]): Ronpa;
+    private readonly _storyMap;
+    private readonly _storyList;
+    private constructor();
+    get stories(): Story[];
+    get length(): number;
+    createStory(by: string, content: string, at?: Date): this;
+    createAndGetStory(by: string, content: string, at?: Date): Story;
+    createFileStory(by: string, files: FileContent[], at?: Date): this;
+    createAndGetFileStory(by: string, files: FileContent[], at?: Date): Story;
+    createAttachmentStory(by: string, text: string, files: FileContent[], at?: Date): this;
+    createAndGetAttachmentStory(by: string, text: string, files: FileContent[], at?: Date): Story;
+    filterStories(func: (stroy: Story, index: number, array: Story[]) => boolean): Story[];
+    addRecord(record: FlatRecord): this;
+    addRecordList(records: FlatRecord[]): this;
+    addStory(story: Story): this;
+    hasStory(id: string): boolean;
+    getStory(id: string): Story | null;
+    assertStory(id: string): Story;
+    ensureStory(id: string): Story;
+    getThesisStories(): Story[];
+    hasBullet(id: string): boolean;
+    getBullet(id: string): Bullet | null;
+    assertBullet(id: string): Bullet;
+    ensureBullet(id: string): Bullet;
+    flat(): FlatRecord[];
+    flatSome(func: (story: Story, index: number, array: Story[]) => boolean): FlatRecord[];
+    hash(): string;
+    clone(): Ronpa;
+    equals(another: Ronpa): boolean;
+    apply(change: ChangeType<any>): this;
+}
