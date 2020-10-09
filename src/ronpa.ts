@@ -134,6 +134,22 @@ export class Ronpa {
         return null;
     }
 
+    public setStory(story: Story): boolean {
+
+        const id = story.id;
+        if (this.hasStory(id)) {
+            this._storyMap.set(story.id, story);
+            for (let i = 0; i < this._storyList.length; ++i) {
+                if (this._storyList[i].id === id) {
+                    this._storyList[i] = story;
+                    break;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     public assertStory(id: string): Story {
 
         return this.getStory(id) as Story;
