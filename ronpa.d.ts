@@ -22,6 +22,7 @@ export declare class Ronpa {
     addStory(story: Story): this;
     hasStory(id: string): boolean;
     getStory(id: string): Story | null;
+    setStory(story: Story): boolean;
     assertStory(id: string): Story;
     ensureStory(id: string): Story;
     getThesisStories(): Story[];

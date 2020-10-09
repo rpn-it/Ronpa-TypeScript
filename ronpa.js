@@ -93,6 +93,20 @@ class Ronpa {
         }
         return null;
     }
+    setStory(story) {
+        const id = story.id;
+        if (this.hasStory(id)) {
+            this._storyMap.set(story.id, story);
+            for (let i = 0; i < this._storyList.length; ++i) {
+                if (this._storyList[i].id === id) {
+                    this._storyList[i] = story;
+                    break;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
     assertStory(id) {
         return this.getStory(id);
     }
